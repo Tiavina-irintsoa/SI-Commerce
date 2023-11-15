@@ -1,3 +1,4 @@
+\c postgres;
 drop database commercial;
 create database commercial;
 \c commercial
@@ -46,13 +47,13 @@ create table chef_service(
     idService integer references service(idService)
 );
 create table finance (
-    idfinance integer references poste(idposte)
+    idfinance integer references service(idService)
 );
 create table achat (
-    idachat integer references poste(idposte)
+    idachat integer references service(idService)
 );
 create table commercial(
-    idcommercial integer references poste(idposte)
+    idcommercial integer references service(idService)
 );
 create table besoin(
     idBesoin serial primary key, 
