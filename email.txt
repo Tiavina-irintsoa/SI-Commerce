@@ -1,0 +1,6 @@
+sudo apt-get install postfix
+sudo nano /etc/postfix/main.cf
+myhostname = your-mail-server.example.com
+mydestination = $myhostname, localhost.$mydomain, $mydomain
+inet_interfaces = all
+sudo service postfix restart
