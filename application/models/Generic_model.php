@@ -43,9 +43,9 @@ class Generic_model extends CI_Model {
     }
 
     public function update($table, $id , $data) {
-        // Mettre à jour un enregistrement en fonction de l'ID
-        $this->db->where($id['name'] , $id['value']);
-        return $this->db->update($table, $data);
+        $this->db->set( $data );
+        $this->db->where( array( $id['name']  => $id['value'] ) );
+        return $this->db->update($table);
     }
 
     public function delete($table, $id) {

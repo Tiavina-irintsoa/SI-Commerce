@@ -1,16 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Fournisseur extends CI_Controller {
+class Article extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
         // set_default_timezone('Indian/Antananarivo');
-        $this->id_name = "idfournisseur";
-        $this->table = "fournisseur"; 
-        $this->all = "fournisseurs";
-        $this->view = "v_fournisseur";
+        $this->id_name = "idarticle";
+        $this->table = "article"; 
+        $this->all = "articles";
+        $this->view = "v_article";
         $this->load->model('generic_model' , 'gm'); // Chargez le modèle générique
+        $this->categoriearticle = $this->gm->get_all("categoriearticle")  ;
     }
 
 
@@ -21,6 +22,7 @@ class Fournisseur extends CI_Controller {
     }
 
     public function create(){
+        $data["categories"] = $this->categoriearticle;
         $data['nom'] = "ajout";
         $data["bouton"] = "Ajouter";
         $data["url"] = base_url($this->table."/insert");
@@ -35,6 +37,7 @@ class Fournisseur extends CI_Controller {
         $data= array(
             $this->id_name => $id['value']
         );
+        $data["categories"] = $this->categoriearticle;
         $data["bouton"] = "Modifier";
         $data["url"] = base_url($this->table."/update");
         $data['input_value'] = $this->gm->get_by_id($this->table ,$id );
