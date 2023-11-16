@@ -5,7 +5,7 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">Besoin/</span> Ajouter des besoins</h4>
               <?php
-                if($erreur){ ?>
+                if(isset($erreur)){ ?>
                   <div class="alert alert-danger"><?= $erreur ?></div>
               <?php  }
               ?>

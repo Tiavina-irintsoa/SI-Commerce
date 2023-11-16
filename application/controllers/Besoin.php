@@ -12,7 +12,6 @@
             $this->load->view('template',$data);
         }
         public function submit(){
-        
             $articles = $this->input->post('article');
             $quantites = $this->input->post('quantite');
             $date = $this->input->post('date');

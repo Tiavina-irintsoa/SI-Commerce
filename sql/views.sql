@@ -45,7 +45,7 @@ create or replace view v_besoin_semaine_avant_non_consulte as(
 );
 create or replace view v_besoin_par_nature as 
     select
-    sum(detailBesoin.quantite),v_article.nomArticle,detailBesoin.idArticle
+    sum(detailBesoin.quantite) as quantite,v_article.nomArticle,detailBesoin.idArticle
     from
     detailBesoin
     join v_besoin_valide
@@ -53,4 +53,6 @@ create or replace view v_besoin_par_nature as
     join v_article
         on v_article.idArticle = detailBesoin.idArticle
     group by detailBesoin.idArticle,v_article.nomArticle;
+
+
 
