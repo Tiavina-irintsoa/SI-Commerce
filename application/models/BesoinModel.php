@@ -1,11 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once('ArticleModel.php');
 class BesoinModel extends CI_Model {
 
     public function get_par_nature(){
         $query = $this->db->get('v_besoin_par_nature');
         return $query->result_array();
+    }
+    public function get_fournisseur(){
+        $articles  =$this->get_par_nature();
+        $this->load->Model('ArticleModel');
+        $nb=count($articles);
+        for ($i = 0; $i<$nb;$i++) {
+            $articles[$i]['fournisseurs'] = $this->ArticleModel->get_fournisseurs($articles[$i]);
+        }
+        return $articles;
     }
     public function insertAll($articles, $quantites, $date, $user) {
         $this->db->trans_start();
