@@ -1,31 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Fournisseurs</title>
-    <link rel="stylesheet" href="<?php  echo base_url("assets/css/test.css") ?>">
-</head>
-<body>
-    <h2>Liste des Fournisseurs</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        <?php foreach ($fournisseurs as $fournisseur): ?>
-            <tr>
-                <td><?= $fournisseur->idfournisseur ?></td>
-                <td><?= $fournisseur->nomfournisseur ?></td>
-                <td><?= $fournisseur->emailfournisseur ?></td>
-                <td>
-                    <a href="<?= base_url("fournisseur/edit/{$fournisseur->idfournisseur}") ?>">Modifier</a>
-                    <a href="<?= base_url("fournisseur/remove/{$fournisseur->idfournisseur}") ?>">Supprimer</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-</body>
-</html>
+<?php $this->load->view("template/header.php") ?>
+
+        <?php $this->load->view("template/nav.php") ?>
+
+        <div class="layout-page">
+
+        <?php $this->load->view("template/search.php") ?>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
+
+              <div class="card">
+                <h5 class="card-header"> Listes des fournisseurs </h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    <?php foreach ($fournisseurs as $fournisseur): ?>
+                        <tr>
+                            <td>
+                            <span class="fw-medium"><?= $fournisseur['nomfournisseur'] ?></span>
+                            </td>
+                            <td><?= $fournisseur['emailfournisseur'] ?></td>
+                            <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href="<?= base_url("fournisseur/edit?{$id}={$fournisseur[$id]}") ?>"
+                                    ><i class="bx bx-edit-alt me-1"></i> Modifier </a
+                                >
+                                <a class="dropdown-item" href="<?= base_url("fournisseur/remove?{$id}={$fournisseur[$id]}") ?>"
+                                    ><i class="bx bx-trash me-1"></i> Supprimer</a
+                                >
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <hr class="my-5" />
+
+            </div>
+            <!-- / Content -->
+
+<?php  $this->load->view("template/footer_table.php")  ?>
