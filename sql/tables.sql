@@ -1,4 +1,4 @@
-\c postgres;
+\c postgres
 drop database commercial;
 create database commercial;
 \c commercial
@@ -47,7 +47,7 @@ create table postePersonnel (
     dateEmbauche date
 );
 create table chef_service(
-    idPersonnel varchar references personnel(matricule),
+    idPoste integer references poste(idposte),
     idService integer references service(idService)
 );
 create table finance (
