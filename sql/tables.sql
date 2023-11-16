@@ -9,12 +9,16 @@ create table categorieArticle(
 create table article(
     idArticle serial primary key,
     nomArticle varchar,
-    idCategorieArticle integer references categorieArticle(idCategorieArticle)
+    idCategorieArticle integer references categorieArticle(idCategorieArticle),
+    dateCreation timestamp default now(),
+    dateSuppression timestamp 
 );
 create table fournisseur (
     idFournisseur serial primary key,
     nomFournisseur varchar,
-    emailFournisseur varchar
+    emailFournisseur varchar, 
+    dateCreation timestamp default NOW(),
+    dateSuppression timestamp 
 );
 create table articleFournisseur(
     idArticle integer references article(idArticle),
@@ -59,7 +63,8 @@ create table besoin(
     idBesoin serial primary key, 
     idPersonnel varchar references personnel(matricule),
     dateBesoin timestamp,
-    datevalidation timestamp 
+    datevalidation timestamp , 
+    dateRefus timestamp
 );
 create table detailBesoin (
     idBesoin integer references besoin(idBesoin),
