@@ -63,7 +63,7 @@ create table commercial(
 create table besoin(
     idBesoin serial primary key, 
     idPersonnel varchar references personnel(matricule),
-    dateBesoin timestamp,
+    dateBesoin date,
     datevalidation timestamp , 
     dateRefus timestamp
 );

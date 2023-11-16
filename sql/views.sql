@@ -16,3 +16,9 @@ create or replace view v_service_poste_personnel as(
     join service
         on service.idService = poste.idservice
 );
+create or replace view v_article as(
+    select 
+    * 
+    from article
+    where datesuppression is null
+);
