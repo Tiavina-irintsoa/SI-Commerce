@@ -10,13 +10,14 @@ class Article extends CI_Controller {
         $this->table = "article"; 
         $this->all = "articles";
         $this->view = "v_article";
+        $this->orderby = "nomarticle";
         $this->load->model('generic_model' , 'gm'); // Chargez le modèle générique
         $this->categoriearticle = $this->gm->get_all("categoriearticle")  ;
     }
 
 
     public function index() {
-        $data[$this->all] = $this->gm->get_all($this->view);
+        $data[$this->all] = $this->gm->get_all($this->view , $this->orderby);
         $data['id'] = $this->id_name;
         $this->load->view($this->table, $data);
     }
@@ -25,6 +26,7 @@ class Article extends CI_Controller {
         $data["categories"] = $this->categoriearticle;
         $data['nom'] = "ajout";
         $data["bouton"] = "Ajouter";
+        $data['id_name']= $this->id_name;
         $data["url"] = base_url($this->table."/insert");
         $this->load->view($this->table . "_form" , $data);
     }
@@ -48,8 +50,8 @@ class Article extends CI_Controller {
 
     public function insert() {
         $data = array(
-            'nomfournisseur' => $this->input->post('nomfournisseur'),
-            'emailfournisseur' => $this->input->post('emailfournisseur')
+            'nomarticle' => $this->input->post('nomarticle'),
+            'idcategoriearticle' => $this->input->post('idcategoriearticle')
         );
         $this->gm->insert( $this->table ,  $data);
         redirect($this->table); 
@@ -63,8 +65,8 @@ class Article extends CI_Controller {
         ;
 
         $data = array(
-            'nomfournisseur' => $this->input->post('nomfournisseur'),
-            'emailfournisseur' => $this->input->post('emailfournisseur')
+            'nomarticle' => $this->input->post('nomarticle'),
+            'idcategoriearticle' => $this->input->post('idcategoriearticle')
         );
 
         $this->gm->update($this->table, $id ,$data);

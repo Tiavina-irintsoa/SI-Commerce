@@ -64,6 +64,17 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row mb-3" >
+                        <div class="col-md">
+                          <small class="text-light fw-medium">Listes des articles</small>
+                          <?php foreach( $list as $a ){ ?>
+                            <div class="form-check">
+                              <input name="articles[]" value="<?= $a['idarticle'] ?>" class="form-check-input" type="checkbox" value=""  <?= isset($a['checked'])  &&  $a['checked'] === TRUE ? "checked" : ""   ?> />
+                              <label class="form-check-label" value="<?= $a['idarticle']  ?>"  for="defaultCheck3" >  <?= $a["nomarticle"] ?> </label>
+                            </div>
+                          <?php } ?>
+                        </div> 
+                        </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary"><?= $bouton ?></button>

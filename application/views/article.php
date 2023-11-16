@@ -13,8 +13,6 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
-
               <div class="card">
                 <h5 class="card-header"> Listes des fournisseurs </h5>
                 <div class="table-responsive text-nowrap">
@@ -27,7 +25,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php foreach ($arcticles as $article): ?>
+                    <?php foreach ($articles as $article): ?>
                         <tr>
                             <td>
                             <span class="fw-medium"><?= $article['nomarticle'] ?></span>
@@ -39,10 +37,10 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/edit?{$id}={$fournisseur[$id]}") ?>"
+                                <a class="dropdown-item" href="<?= base_url("article/edit?{$id}={$article[$id]}") ?>"
                                     ><i class="bx bx-edit-alt me-1"></i> Modifier </a
                                 >
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/remove?{$id}={$fournisseur[$id]}") ?>"
+                                <a class="dropdown-item" href="<?= base_url("article/remove?{$id}={$article[$id]}") ?>"
                                     ><i class="bx bx-trash me-1"></i> Supprimer</a
                                 >
                                 </div>

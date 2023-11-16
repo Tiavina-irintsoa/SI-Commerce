@@ -14,7 +14,14 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
-
+              <div class="buy-now">
+                <a
+                  href=<?= base_url("fournisseur/create") ?>
+                  target="_blank"
+                  class="btn btn-primary btn-buy-now"
+                  style="box-shadow:0 1px 20px 1px #696CFF;">Ajouter fournisseur</a
+                >
+              </div>
               <div class="card">
                 <h5 class="card-header"> Listes des fournisseurs </h5>
                 <div class="table-responsive text-nowrap">
