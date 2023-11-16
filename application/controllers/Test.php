@@ -7,7 +7,11 @@ class Test extends CI_Controller {
     }
 
     public function table(){
-        $this->load->view("html/table.php");
+        $this->load->view("table.php");
+    }
+
+    public function form(){
+        $this->load->view("form.php");
     }
 }
 
