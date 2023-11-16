@@ -5,6 +5,7 @@
         public function __construct(){
             parent::__construct();
             $this->load->Model('BesoinModel');
+            $this->load->Model('ProformaModel');
         }
         public function listeParNature(){
             $data=array();
@@ -13,9 +14,45 @@
             $data['page'] = 'besoin_par_nature';
             $this->load->view('template',$data);
         }
-        public function index(){
+        public function submit(){
+            $error = false;
+            if(!isset($_POST['date'])){
+                $this->index('Date invalide');
+                $error = true;
+            }
+            else{
+                $date = $this->input->post('date');
+            
+            $articles = $this->session->articles;
+            
+            for ($i=0; $i <count($articles) && !$error ; $i++) { 
+                if(!isset($_POST['FOURNISSEUR'.$articles[$i]['idarticle']])){
+                    $this->index('Fournisseurs invalides pour '.$articles[$i]['nomarticle']);
+                    $error = true;
+                }
+                else{
+                    $fournisseurs = $this->input->post($articles[$i]['idarticle']);
+                    $fournisseurs = is_array($fournisseurs) ? $fournisseurs : [$fournisseurs];
+                    $articles[$i]['fournisseurs_choisis'] = $fournisseurs;
+                }
+                if($error){
+                    break;
+                }
+            }
+            if($error==false){
+                $status  =$this->ProformaModel->insertAll($articles,$date);
+            if($status){
+                redirect('demandeProforma/listeParNature');
+            }
+            }
+            }
+        }
+        public function index($erreur = null){
             $data['page'] = 'demandeproforma';
             $data['title'] = 'Faire une demande de proforma';
+            $data['erreur']  =$erreur;
+            $data['articles']=$this->BesoinModel->get_fournisseur();
+            $this->session->set_userdata('articles',$data['articles']);
             $this->load->view('template',$data);
         }
     }

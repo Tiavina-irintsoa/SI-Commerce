@@ -6,4 +6,8 @@ class ArticleModel extends CI_Model{
         $query = $this->db->get('v_article');
         return $query->result_array();
     }
+    public function get_fournisseurs($article){
+        $query = $this->db->get_where('v_article_fournisseur', array('idarticle' => $article['idarticle']));
+        return $query->result_array();
+    }
 }

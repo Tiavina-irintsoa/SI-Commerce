@@ -65,7 +65,8 @@ create table besoin(
     idPersonnel varchar references personnel(matricule),
     dateBesoin date,
     datevalidation timestamp , 
-    dateRefus timestamp
+    dateRefus timestamp, 
+    demandeProforma timestamp
 );
 create table detailBesoin (
     idBesoin integer references besoin(idBesoin),
@@ -74,7 +75,7 @@ create table detailBesoin (
 );
 create table demandeProforma(
     iddemande serial primary key, 
-    dateDemande timestamp,
+    dateDemande timestamp default now(),
     delaiLivraison date
 );
 create table fournisseur_proforma(
@@ -82,6 +83,7 @@ create table fournisseur_proforma(
     idFournisseur integer references fournisseur(idFournisseur),
     idArticle integer references article(idArticle)
 );
+
 create table proforma(
     idProforma serial primary key, 
     iddemande integer references demandeProforma(iddemande),
@@ -112,4 +114,14 @@ create table detailsBonCommande(
     idArticle integer references article(idArticle),
     quantite numeric, 
     prixUnitaire numeric --denormalisation 
+);
+create table detailsDemandeProforma(
+    iddemande integer references demandeProforma(iddemande),
+    idArticle integer references article(idArticle),
+    quantite numeric
+);
+create table fournisseurDemandeProforma (
+    iddemande integer references demandeProforma(iddemande),
+    idArticle integer references article(idArticle),
+    idFournisseur integer references fournisseur(idFournisseur)
 );
