@@ -20,42 +20,20 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		var_dump( $this->session );
 		if($this->session->has_userdata('user')){
 			echo 'connected';
 		}
-		redirect('login');
+		else{
+			redirect('welcome/login');
+		}
 	}	
 	public function login(){
+
 		$this->load->view('login');
 	}
 	public function test(){
 		$data['page'] = 'test';
 		$this->load->view('template.php',$data);
 	}
-
-	// public function email(){
-	// 	$config = array(
-	// 		'protocol' => 'smtp', 
-	// 		'smtp_host' => 'localhost',
-	// 		'smtp_port' => 587,
-	// 		'smtp_user' => 'votre-adresse-email@gmail.com',
-	// 		'smtp_pass' => 'votre-mot-de-passe',
-	// 		'mailtype' => 'html', // Type de contenu (texte ou HTML)
-	// 		'charset' => 'utf-8',
-	// 		'newline' => "\r\n"
-	// 	);
-		
-	// 	$this->email->initialize($config);
-	// 	$this->email->from('votre-adresse-email@gmail.com', 'Votre Nom');
-	// 	$this->email->to('destinataire@example.com');
-	// 	$this->email->subject('Sujet de l\'e-mail');
-	// 	$this->email->message('Contenu de l\'e-mail');
-
-	// 	if ($this->email->send()) {
-	// 		echo 'E-mail envoyé avec succès.';
-	// 	} else {
-	// 		show_error($this->email->print_debugger());
-	// 	}
-		
-	// }	
 }
