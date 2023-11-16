@@ -2,6 +2,7 @@
 drop database commercial;
 create database commercial;
 \c commercial
+
 create table categorieArticle(
     idCategorieArticle serial primary key, 
     libelleCategorie varchar
