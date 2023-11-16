@@ -13,7 +13,15 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="card">
+            <div class="buy-now">
+                <a
+                  href=<?= base_url("article/create") ?>
+                  target="_blank"
+                  class="btn btn-primary btn-buy-now"
+                  style="box-shadow:0 1px 20px 1px #696CFF;">Ajouter article</a
+                >
+              </div>  
+            <div class="card">
                 <h5 class="card-header"> Listes des fournisseurs </h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
