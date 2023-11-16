@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Auth extends CI_Controller{
     public function __construct(){
+        parent::__construct();
         $this->load->Model('UserModel');
     }
     public function index(){
@@ -10,8 +11,11 @@ class Auth extends CI_Controller{
         $user = $this->UserModel->auth($username,$password);
         if($user == null){
             $data = array();
-            $data['erreur'] = "Nom d'utilisateur ou mot de pass incorrect";
+            $data['erreur'] = "Nom d'utilisateur ou mot de passe incorrect";
             $this->load->view('login',$data);
+        }
+        else{
+            $this->session->set_userdata('user',$user);
         }
     }
 }
