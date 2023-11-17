@@ -6,7 +6,7 @@
 
         public function __construct() {
             parent::__construct();
-            $this->load->model('pdfmodel' , 'pdf'); // Chargez le modèle générique
+            $this->load->model('pdfmodel' , 'pdf');
         }
 
         public function index(){
@@ -19,7 +19,7 @@
             $societe = 'Miraculous LadyBug';
             $f = 'Fournisseur';
             $delai = '08-08-2023';
-            $this->pdf->demande_proforma($societe, $f, $delai, $data);            
+            $this->pdf->liste_proforma($societe, $f, $delai, $data);            
             ob_end_flush();       
         }
     }
