@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="PostgreSQL" id="Project-b99" database="PostgreSQL" >
+	<schema name="public" >
+		<comment><![CDATA[standard public schema]]></comment>
+		<table name="achat" row_count="0" spec="" >
+			<column name="idachat" type="integer" length="32" jt="4" />
+			<fk name="achat_idachat_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="idachat" pk="idservice" />
+			</fk>
+		</table>
+		<table name="article" row_count="0" spec="" >
+			<column name="idarticle" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="nomarticle" type="varchar" jt="12" />
+			<column name="idcategoriearticle" type="integer" length="32" jt="4" />
+			<column name="datecreation" type="timestamp" length="6" jt="93" >
+				<defo><![CDATA[now()]]></defo>
+			</column>
+			<column name="datesuppression" type="timestamp" length="6" jt="93" />
+			<index name="article_pkey" unique="PRIMARY_KEY" >
+				<column name="idarticle" />
+			</index>
+			<fk name="article_idcategoriearticle_fkey" to_schema="public" to_table="categoriearticle" options="" >
+				<fk_column name="idcategoriearticle" pk="idcategoriearticle" />
+			</fk>
+		</table>
+		<table name="articlefournisseur" row_count="0" spec="" >
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="idfournisseur" type="integer" length="32" jt="4" />
+			<fk name="articlefournisseur_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+			<fk name="articlefournisseur_idfournisseur_fkey" to_schema="public" to_table="fournisseur" options="" >
+				<fk_column name="idfournisseur" pk="idfournisseur" />
+			</fk>
+		</table>
+		<table name="besoin" row_count="0" spec="" >
+			<column name="idbesoin" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="idpersonnel" type="varchar" jt="12" />
+			<column name="datebesoin" type="date" length="0" jt="91" />
+			<column name="datevalidation" type="timestamp" length="6" jt="93" />
+			<column name="daterefus" type="timestamp" length="6" jt="93" />
+			<column name="dateproforma" type="timestamp" length="6" jt="93" />
+			<index name="besoin_pkey" unique="PRIMARY_KEY" >
+				<column name="idbesoin" />
+			</index>
+			<fk name="besoin_idpersonnel_fkey" to_schema="public" to_table="personnel" options="" >
+				<fk_column name="idpersonnel" pk="matricule" />
+			</fk>
+		</table>
+		<table name="boncommande" row_count="0" spec="" >
+			<column name="idboncommande" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="iddemande" type="integer" length="32" jt="4" />
+			<column name="livraisonpartielle" type="integer" length="32" jt="4" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="idmodepaiement" type="integer" length="32" jt="4" />
+			<column name="datecreation" type="timestamp" length="6" jt="93" />
+			<column name="datevalidationfinance" type="timestamp" length="6" jt="93" />
+			<column name="datevalidationadjoint" type="timestamp" length="6" jt="93" />
+			<index name="boncommande_pkey" unique="PRIMARY_KEY" >
+				<column name="idboncommande" />
+			</index>
+			<fk name="boncommande_iddemande_fkey" to_schema="public" to_table="demandeproforma" options="" >
+				<fk_column name="iddemande" pk="iddemande" />
+			</fk>
+			<fk name="boncommande_idmodepaiement_fkey" to_schema="public" to_table="modepaiement" options="" >
+				<fk_column name="idmodepaiement" pk="idmodepaiement" />
+			</fk>
+		</table>
+		<table name="categoriearticle" row_count="0" spec="" >
+			<column name="idcategoriearticle" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="libellecategorie" type="varchar" jt="12" />
+			<index name="categoriearticle_pkey" unique="PRIMARY_KEY" >
+				<column name="idcategoriearticle" />
+			</index>
+		</table>
+		<table name="chef_service" row_count="0" spec="" >
+			<column name="idposte" type="integer" length="32" jt="4" />
+			<column name="idservice" type="integer" length="32" jt="4" />
+			<fk name="chef_service_idposte_fkey" to_schema="public" to_table="poste" options="" >
+				<fk_column name="idposte" pk="idposte" />
+			</fk>
+			<fk name="chef_service_idservice_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="idservice" pk="idservice" />
+			</fk>
+		</table>
+		<table name="commercial" row_count="0" spec="" >
+			<column name="idcommercial" type="integer" length="32" jt="4" />
+			<fk name="commercial_idcommercial_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="idcommercial" pk="idservice" />
+			</fk>
+		</table>
+		<table name="demandeproforma" row_count="0" spec="" >
+			<column name="iddemande" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="datedemande" type="timestamp" length="6" jt="93" />
+			<column name="delailivraison" type="date" length="0" jt="91" />
+			<index name="demandeproforma_pkey" unique="PRIMARY_KEY" >
+				<column name="iddemande" />
+			</index>
+		</table>
+		<table name="detailbesoin" row_count="0" spec="" >
+			<column name="idbesoin" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="quantite" type="numeric" jt="2" />
+			<fk name="detailbesoin_idbesoin_fkey" to_schema="public" to_table="besoin" options="" >
+				<fk_column name="idbesoin" pk="idbesoin" />
+			</fk>
+			<fk name="detailbesoin_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+		</table>
+		<table name="detailsboncommande" row_count="0" spec="" >
+			<column name="idboncommande" type="integer" length="32" jt="4" />
+			<column name="idfournisseur" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="quantite" type="numeric" jt="2" />
+			<column name="prixunitaire" type="numeric" jt="2" />
+			<fk name="detailsboncommande_idboncommande_fkey" to_schema="public" to_table="boncommande" options="" >
+				<fk_column name="idboncommande" pk="idboncommande" />
+			</fk>
+			<fk name="detailsboncommande_idfournisseur_fkey" to_schema="public" to_table="fournisseur" options="" >
+				<fk_column name="idfournisseur" pk="idfournisseur" />
+			</fk>
+			<fk name="detailsboncommande_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+		</table>
+		<table name="detailsdemandeproforma" row_count="0" spec="" >
+			<column name="iddemande" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="quantite" type="numeric" jt="2" />
+			<fk name="detailsdemandeproforma_iddemande_fkey" to_schema="public" to_table="demandeproforma" options="" >
+				<fk_column name="iddemande" pk="iddemande" />
+			</fk>
+			<fk name="detailsdemandeproforma_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+		</table>
+		<table name="detailsproforma" row_count="0" spec="" >
+			<column name="idproforma" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="disponible" type="numeric" jt="2" />
+			<column name="prixunitaire" type="numeric" jt="2" />
+			<fk name="detailsproforma_idproforma_fkey" to_schema="public" to_table="proforma" options="" >
+				<fk_column name="idproforma" pk="idproforma" />
+			</fk>
+			<fk name="detailsproforma_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+		</table>
+		<table name="finance" row_count="0" spec="" >
+			<column name="idfinance" type="integer" length="32" jt="4" />
+			<fk name="finance_idfinance_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="idfinance" pk="idservice" />
+			</fk>
+		</table>
+		<table name="fournisseur" row_count="0" spec="" >
+			<column name="idfournisseur" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="nomfournisseur" type="varchar" jt="12" />
+			<column name="emailfournisseur" type="varchar" jt="12" />
+			<column name="datecreation" type="timestamp" length="6" jt="93" >
+				<defo><![CDATA[now()]]></defo>
+			</column>
+			<column name="datesuppression" type="timestamp" length="6" jt="93" />
+			<index name="fournisseur_pkey" unique="PRIMARY_KEY" >
+				<column name="idfournisseur" />
+			</index>
+		</table>
+		<table name="fournisseur_proforma" row_count="0" spec="" >
+			<column name="iddemande" type="integer" length="32" jt="4" />
+			<column name="idfournisseur" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<fk name="fournisseur_proforma_iddemande_fkey" to_schema="public" to_table="demandeproforma" options="" >
+				<fk_column name="iddemande" pk="iddemande" />
+			</fk>
+			<fk name="fournisseur_proforma_idfournisseur_fkey" to_schema="public" to_table="fournisseur" options="" >
+				<fk_column name="idfournisseur" pk="idfournisseur" />
+			</fk>
+			<fk name="fournisseur_proforma_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+		</table>
+		<table name="fournisseurdemandeproforma" row_count="2" spec="" >
+			<column name="iddemande" type="integer" length="32" jt="4" />
+			<column name="idarticle" type="integer" length="32" jt="4" />
+			<column name="idfournisseur" type="integer" length="32" jt="4" />
+			<fk name="fournisseurdemandeproforma_iddemande_fkey" to_schema="public" to_table="demandeproforma" options="" >
+				<fk_column name="iddemande" pk="iddemande" />
+			</fk>
+			<fk name="fournisseurdemandeproforma_idarticle_fkey" to_schema="public" to_table="article" options="" >
+				<fk_column name="idarticle" pk="idarticle" />
+			</fk>
+			<fk name="fournisseurdemandeproforma_idfournisseur_fkey" to_schema="public" to_table="fournisseur" options="" >
+				<fk_column name="idfournisseur" pk="idfournisseur" />
+			</fk>
+		</table>
+		<table name="modepaiement" row_count="0" spec="" >
+			<column name="idmodepaiement" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="nommode" type="varchar" jt="12" />
+			<index name="modepaiement_pkey" unique="PRIMARY_KEY" >
+				<column name="idmodepaiement" />
+			</index>
+		</table>
+		<table name="personnel" row_count="0" spec="" >
+			<column name="matricule" type="varchar" jt="12" mandatory="y" />
+			<column name="nompersonnel" type="varchar" jt="12" />
+			<column name="login" type="varchar" jt="12" />
+			<column name="motdepasse" type="varchar" jt="12" />
+			<column name="idposte" type="integer" length="32" jt="4" />
+			<index name="personnel_pkey" unique="PRIMARY_KEY" >
+				<column name="matricule" />
+			</index>
+			<fk name="personnel_idposte_fkey" to_schema="public" to_table="poste" options="" >
+				<fk_column name="idposte" pk="idposte" />
+			</fk>
+		</table>
+		<table name="poste" row_count="0" spec="" >
+			<column name="idposte" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="nomposte" type="varchar" jt="12" />
+			<column name="idservice" type="integer" length="32" jt="4" />
+			<index name="poste_pkey" unique="PRIMARY_KEY" >
+				<column name="idposte" />
+			</index>
+			<fk name="poste_idservice_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="idservice" pk="idservice" />
+			</fk>
+		</table>
+		<table name="postepersonnel" row_count="0" spec="" >
+			<column name="idpersonnel" type="varchar" jt="12" />
+			<column name="idposte" type="integer" length="32" jt="4" />
+			<column name="dateembauche" type="date" length="0" jt="91" />
+			<fk name="postepersonnel_idpersonnel_fkey" to_schema="public" to_table="personnel" options="" >
+				<fk_column name="idpersonnel" pk="matricule" />
+			</fk>
+			<fk name="postepersonnel_idposte_fkey" to_schema="public" to_table="poste" options="" >
+				<fk_column name="idposte" pk="idposte" />
+			</fk>
+		</table>
+		<table name="proforma" row_count="0" spec="" >
+			<column name="idproforma" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="iddemande" type="integer" length="32" jt="4" />
+			<column name="idfournisseur" type="integer" length="32" jt="4" />
+			<index name="proforma_pkey" unique="PRIMARY_KEY" >
+				<column name="idproforma" />
+			</index>
+			<fk name="proforma_iddemande_fkey" to_schema="public" to_table="demandeproforma" options="" >
+				<fk_column name="iddemande" pk="iddemande" />
+			</fk>
+			<fk name="proforma_idfournisseur_fkey" to_schema="public" to_table="fournisseur" options="" >
+				<fk_column name="idfournisseur" pk="idfournisseur" />
+			</fk>
+		</table>
+		<table name="service" row_count="0" spec="" >
+			<column name="idservice" type="serial" length="32" jt="4" mandatory="y" />
+			<column name="nomservice" type="varchar" jt="12" />
+			<column name="iconeservice" type="varchar" jt="12" />
+			<index name="service_pkey" unique="PRIMARY_KEY" >
+				<column name="idservice" />
+			</index>
+		</table>
+		<view name="v_article" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} (article.datesuppression IS NULL)]]></view_script>
+			<column name="idarticle" type="integer" />
+			<column name="nomarticle" type="varchar" />
+			<column name="idcategoriearticle" type="integer" />
+			<column name="datecreation" type="timestamp" />
+			<column name="datesuppression" type="timestamp" />
+		</view>
+		<view name="v_article_fournisseur" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((v_article      JOIN articlefournisseur ON ((articlefournisseur.idarticle = v_article.idarticle)))      JOIN v_fournisseur ON ((v_fournisseur.idfournisseur = articlefournisseur.idfournisseur)))]]></view_script>
+			<column name="nomfournisseur" type="varchar" />
+			<column name="idarticle" type="integer" />
+			<column name="nomarticle" type="varchar" />
+			<column name="idfournisseur" type="integer" />
+		</view>
+		<view name="v_besoin_non_consulte" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((besoin.datevalidation IS NULL) AND (besoin.daterefus IS NULL))]]></view_script>
+			<column name="idbesoin" type="integer" />
+			<column name="idpersonnel" type="varchar" />
+			<column name="datebesoin" type="date" />
+			<column name="datevalidation" type="timestamp" />
+			<column name="daterefus" type="timestamp" />
+		</view>
+		<view name="v_besoin_par_nature" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view}(detailbesoin.quantite) AS quantite,     v_article.nomarticle,     detailbesoin.idarticle    FROM ((detailbesoin      JOIN v_besoin_valide_sans_proforma ON ((v_besoin_valide_sans_proforma.idbesoin = detailbesoin.idbesoin)))      JOIN v_article ON ((v_article.idarticle = detailbesoin.idarticle)))   GROUP BY detailbesoin.idarticle, v_article.nomarticle]]></view_script>
+			<column name="quantite" type="numeric" />
+			<column name="nomarticle" type="varchar" />
+			<column name="idarticle" type="integer" />
+		</view>
+		<view name="v_besoin_semaine" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((EXTRACT(week FROM v_besoin_valide.datebesoin) = EXTRACT(week FROM now())) AND (EXTRACT(year FROM v_besoin_valide.datebesoin) = EXTRACT(year FROM now())))]]></view_script>
+			<column name="idbesoin" type="integer" />
+			<column name="idpersonnel" type="varchar" />
+			<column name="datebesoin" type="date" />
+			<column name="datevalidation" type="timestamp" />
+			<column name="daterefus" type="timestamp" />
+		</view>
+		<view name="v_besoin_semaine_avant_non_consulte" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((EXTRACT(week FROM v_besoin_non_consulte.datebesoin) = EXTRACT(week FROM now())) AND (EXTRACT(year FROM v_besoin_non_consulte.datebesoin) = EXTRACT(year FROM now())))]]></view_script>
+			<column name="idbesoin" type="integer" />
+			<column name="idpersonnel" type="varchar" />
+			<column name="datebesoin" type="date" />
+			<column name="datevalidation" type="timestamp" />
+			<column name="daterefus" type="timestamp" />
+		</view>
+		<view name="v_besoin_valide" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} (besoin.datevalidation IS NOT NULL)]]></view_script>
+			<column name="idbesoin" type="integer" />
+			<column name="idpersonnel" type="varchar" />
+			<column name="datebesoin" type="date" />
+			<column name="datevalidation" type="timestamp" />
+			<column name="daterefus" type="timestamp" />
+			<column name="dateproforma" type="timestamp" />
+		</view>
+		<view name="v_besoin_valide_sans_proforma" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} (v_besoin_valide.dateproforma IS NULL)]]></view_script>
+			<column name="idbesoin" type="integer" />
+			<column name="idpersonnel" type="varchar" />
+			<column name="datebesoin" type="date" />
+			<column name="datevalidation" type="timestamp" />
+			<column name="daterefus" type="timestamp" />
+			<column name="dateproforma" type="timestamp" />
+		</view>
+		<view name="v_chef_service" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((chef_service      JOIN poste ON ((poste.idposte = chef_service.idposte)))      JOIN personnel ON ((personnel.idposte = poste.idposte)))]]></view_script>
+			<column name="matricule" type="varchar" />
+			<column name="idservice" type="integer" />
+			<column name="nomposte" type="varchar" />
+			<column name="idposte" type="integer" />
+		</view>
+		<view name="v_fournisseur" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} (fournisseur.datesuppression IS NULL)]]></view_script>
+			<column name="idfournisseur" type="integer" />
+			<column name="nomfournisseur" type="varchar" />
+			<column name="emailfournisseur" type="varchar" />
+			<column name="datecreation" type="timestamp" />
+			<column name="datesuppression" type="timestamp" />
+		</view>
+		<view name="v_service_poste_personnel" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${view} ((personnel      JOIN poste ON ((poste.idposte = personnel.idposte)))      JOIN service ON ((service.idservice = poste.idservice)))]]></view_script>
+			<column name="matricule" type="varchar" />
+			<column name="idposte" type="integer" />
+			<column name="idservice" type="integer" />
+		</view>
+		<sequence name="article_idarticle_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="besoin_idbesoin_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="boncommande_idboncommande_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="categoriearticle_idcategoriearticle_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="demandeproforma_iddemande_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="fournisseur_idfournisseur_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="modepaiement_idmodepaiement_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="poste_idposte_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="proforma_idproforma_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="service_idservice_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+	</schema>
+	<layout name="Main Layout" id="Layout-228" show_relation="columns" >
+		<entity schema="public" name="achat" color="F4DDBE" x="1513" y="986" />
+		<entity schema="public" name="article" color="BEBEF4" x="357" y="221" />
+		<entity schema="public" name="articlefournisseur" color="BEBEF4" x="68" y="493" />
+		<entity schema="public" name="besoin" color="BED3F4" x="2261" y="782" />
+		<entity schema="public" name="boncommande" color="D1BEF4" x="1836" y="221" />
+		<entity schema="public" name="categoriearticle" color="BEBEF4" x="51" y="272" />
+		<entity schema="public" name="chef_service" color="F4DDBE" x="1751" y="986" />
+		<entity schema="public" name="commercial" color="F4DDBE" x="1275" y="986" />
+		<entity schema="public" name="demandeproforma" color="D1BEF4" x="1581" y="221" />
+		<entity schema="public" name="detailbesoin" color="BED3F4" x="2516" y="782" />
+		<entity schema="public" name="detailsboncommande" color="BEBEF4" x="663" y="493" />
+		<entity schema="public" name="detailsdemandeproforma" color="D1BEF4" x="1275" y="221" />
+		<entity schema="public" name="detailsproforma" color="BEBEF4" x="357" y="493" />
+		<entity schema="public" name="finance" color="F4DDBE" x="1292" y="816" />
+		<entity schema="public" name="fournisseur" color="BEBEF4" x="663" y="221" />
+		<entity schema="public" name="fournisseur_proforma" color="BEBEF4" x="969" y="493" />
+		<entity schema="public" name="fournisseurdemandeproforma" color="D1BEF4" x="1496" y="425" />
+		<entity schema="public" name="modepaiement" color="D1BEF4" x="2142" y="221" />
+		<entity schema="public" name="personnel" color="BED3F4" x="2006" y="782" />
+		<entity schema="public" name="poste" color="F4DDBE" x="1751" y="782" />
+		<entity schema="public" name="postepersonnel" color="BED3F4" x="2006" y="1020" />
+		<entity schema="public" name="proforma" color="BEBEF4" x="969" y="221" />
+		<entity schema="public" name="service" color="F4DDBE" x="1513" y="782" />
+		<entity schema="public" name="v_article" color="BED3F4" x="1411" y="1224" />
+		<entity schema="public" name="v_article_fournisseur" color="BED3F4" x="1139" y="1241" />
+		<entity schema="public" name="v_besoin_non_consulte" color="BED3F4" x="1683" y="1224" />
+		<entity schema="public" name="v_besoin_par_nature" color="C7F4BE" x="2346" y="2006" />
+		<entity schema="public" name="v_besoin_semaine" color="C7F4BE" x="2346" y="1751" />
+		<entity schema="public" name="v_besoin_semaine_avant_non_consulte" color="C7F4BE" x="2601" y="1751" />
+		<entity schema="public" name="v_besoin_valide" color="C7F4BE" x="2091" y="1751" />
+		<entity schema="public" name="v_besoin_valide_sans_proforma" color="C7F4BE" x="2006" y="2006" />
+		<entity schema="public" name="v_chef_service" color="BED3F4" x="1683" y="1462" />
+		<entity schema="public" name="v_fournisseur" color="BED3F4" x="1411" y="1462" />
+		<entity schema="public" name="v_service_poste_personnel" color="BED3F4" x="1105" y="1462" />
+		<callout x="357" y="85" pointer="Round" >
+			<comment><![CDATA[This is a layout. You can create multiple layouts with the same or different tables. 
+
+Edit tables by double-clicking the table headers.]]></comment>
+		</callout>
+		<group name="v_article" color="ECF0F7" >
+			<entity schema="public" name="v_article" />
+			<entity schema="public" name="v_besoin_non_consulte" />
+			<entity schema="public" name="v_chef_service" />
+			<entity schema="public" name="v_fournisseur" />
+			<entity schema="public" name="v_service_poste_personnel" />
+			<entity schema="public" name="v_article_fournisseur" />
+		</group>
+		<group name="v_besoin_valide" color="EEF7EC" >
+			<entity schema="public" name="v_besoin_valide" />
+			<entity schema="public" name="v_besoin_semaine" />
+			<entity schema="public" name="v_besoin_par_nature" />
+			<entity schema="public" name="v_besoin_valide_sans_proforma" />
+			<entity schema="public" name="v_besoin_semaine_avant_non_consulte" />
+		</group>
+		<group name="personnel" color="ECF0F7" >
+			<entity schema="public" name="personnel" />
+			<entity schema="public" name="besoin" />
+			<entity schema="public" name="detailbesoin" />
+			<entity schema="public" name="postepersonnel" />
+		</group>
+		<group name="demandeproforma" color="F0ECF7" >
+			<entity schema="public" name="demandeproforma" />
+			<entity schema="public" name="boncommande" />
+			<entity schema="public" name="fournisseurdemandeproforma" />
+			<entity schema="public" name="detailsdemandeproforma" />
+			<entity schema="public" name="modepaiement" />
+		</group>
+		<group name="service" color="F7F2EC" >
+			<entity schema="public" name="service" />
+			<entity schema="public" name="poste" />
+			<entity schema="public" name="chef_service" />
+			<entity schema="public" name="achat" />
+			<entity schema="public" name="commercial" />
+			<entity schema="public" name="finance" />
+		</group>
+		<group name="article" color="ECECF7" >
+			<entity schema="public" name="article" />
+			<entity schema="public" name="fournisseur" />
+			<entity schema="public" name="detailsboncommande" />
+			<entity schema="public" name="proforma" />
+			<entity schema="public" name="fournisseur_proforma" />
+			<entity schema="public" name="detailsproforma" />
+			<entity schema="public" name="articlefournisseur" />
+			<entity schema="public" name="categoriearticle" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-238c" show_column_type="y" show_relation="columns" >
+		<entity schema="public" name="achat" color="F4DDBE" x="1785" y="816" />
+		<entity schema="public" name="article" color="BEBEF4" x="391" y="51" />
+		<entity schema="public" name="articlefournisseur" color="BEBEF4" x="68" y="323" />
+		<entity schema="public" name="besoin" color="BED3F4" x="2686" y="612" />
+		<entity schema="public" name="boncommande" color="D1BEF4" x="2142" y="51" />
+		<entity schema="public" name="categoriearticle" color="BEBEF4" x="51" y="102" />
+		<entity schema="public" name="chef_service" color="F4DDBE" x="2074" y="816" />
+		<entity schema="public" name="commercial" color="F4DDBE" x="1496" y="816" />
+		<entity schema="public" name="demandeproforma" color="D1BEF4" x="1802" y="51" />
+		<entity schema="public" name="detailbesoin" color="BED3F4" x="3026" y="612" />
+		<entity schema="public" name="detailsboncommande" color="BEBEF4" x="782" y="323" />
+		<entity schema="public" name="detailsdemandeproforma" color="D1BEF4" x="1496" y="255" />
+		<entity schema="public" name="detailsproforma" color="BEBEF4" x="391" y="323" />
+		<entity schema="public" name="finance" color="F4DDBE" x="1513" y="646" />
+		<entity schema="public" name="fournisseur" color="BEBEF4" x="782" y="51" />
+		<entity schema="public" name="fournisseur_proforma" color="BEBEF4" x="1173" y="323" />
+		<entity schema="public" name="fournisseurdemandeproforma" color="D1BEF4" x="1802" y="255" />
+		<entity schema="public" name="modepaiement" color="D1BEF4" x="2533" y="51" />
+		<entity schema="public" name="personnel" color="BED3F4" x="2380" y="612" />
+		<entity schema="public" name="poste" color="F4DDBE" x="2074" y="612" />
+		<entity schema="public" name="postepersonnel" color="BED3F4" x="2380" y="850" />
+		<entity schema="public" name="proforma" color="BEBEF4" x="1173" y="51" />
+		<entity schema="public" name="service" color="F4DDBE" x="1785" y="612" />
+		<entity schema="public" name="v_article" color="BED3F4" x="1683" y="1054" />
+		<entity schema="public" name="v_article_fournisseur" color="BED3F4" x="1377" y="1071" />
+		<entity schema="public" name="v_besoin_non_consulte" color="BED3F4" x="2023" y="1054" />
+		<entity schema="public" name="v_besoin_par_nature" color="C7F4BE" x="2720" y="1836" />
+		<entity schema="public" name="v_besoin_semaine" color="C7F4BE" x="2720" y="1581" />
+		<entity schema="public" name="v_besoin_semaine_avant_non_consulte" color="C7F4BE" x="3043" y="1581" />
+		<entity schema="public" name="v_besoin_valide" color="C7F4BE" x="2397" y="1581" />
+		<entity schema="public" name="v_besoin_valide_sans_proforma" color="C7F4BE" x="2380" y="1836" />
+		<entity schema="public" name="v_chef_service" color="BED3F4" x="2023" y="1292" />
+		<entity schema="public" name="v_fournisseur" color="BED3F4" x="1683" y="1292" />
+		<entity schema="public" name="v_service_poste_personnel" color="BED3F4" x="1377" y="1292" />
+		<script name="SQL Editor" id="Editor-27d" language="SQL" >
+			<string><![CDATA[SELECT
+	idarticle, nomarticle, idcategoriearticle, datecreation, datesuppression
+FROM
+	"public".article e;]]></string>
+		</script>
+		<browser id="Browse-1487" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="public" entity="article" x="-2147483648" y="-2147483648" width="-2147483648" height="-2147483648" >
+				<browse_table schema="public" entity="articlefournisseur" fk="articlefournisseur_idarticle_fkey" x="40" y="-2147483648" width="500" height="350" >
+					<browse_table schema="public" entity="fournisseur" fk="articlefournisseur_idfournisseur_fkey" x="580" y="-2147483648" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query-11e2" name="Query Builder" >
+			<query_table schema="public" name="article" alias="a" x="51" y="51" >
+				<column name="idarticle" />
+				<column name="nomarticle" />
+				<column name="idcategoriearticle" />
+				<column name="datecreation" />
+				<column name="datesuppression" />
+				<query_table schema="public" name="articlefournisseur" alias="a1" x="323" y="51" fk="articlefournisseur_idarticle_fkey" type="Inner Join" >
+					<column name="idarticle" />
+					<column name="idfournisseur" />
+					<query_table schema="public" name="fournisseur" alias="f" x="595" y="51" fk="articlefournisseur_idfournisseur_fkey" type="Inner Join" >
+						<column name="idfournisseur" />
+						<column name="nomfournisseur" />
+						<column name="emailfournisseur" />
+						<column name="datecreation" />
+						<column name="datesuppression" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report" id="Report-21d9" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" scroll="n" html="n" >
+				<cell type="label" name="Article Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="chart" name="Pie" template="Pie" pos="0,1,4,1,l,c" max_records="20" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="idarticle" type="4" />
+						<var name="nomarticle" />
+						<var name="idcategoriearticle" type="4" />
+						<var name="datecreation" type="93" />
+						<var name="datesuppression" type="93" />
+						<script ><![CDATA[SELECT * FROM "public".article]]></script>
+					</form_script>
+					<param name="item" value="nomarticle" />
+					<param name="width" value="100%" />
+					<param name="title" value="Sample Chart" />
+					<param name="value" value="idarticle" />
+					<param name="height" value="400px" />
+				</cell>
+				<tableview name="sample" template="Table" css="table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2,-2},{-2,-2}}" scroll="n" html="n" header_rows="1" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="idarticle" type="4" />
+						<var name="nomarticle" />
+						<var name="idcategoriearticle" type="4" />
+						<var name="datecreation" type="93" />
+						<var name="datesuppression" type="93" />
+						<script ><![CDATA[SELECT * FROM "public".article]]></script>
+					</form_script>
+					<cell type="label" name="idarticle" pos="0,0,0,0,c,c" />
+					<cell type="label" name="nomarticle" pos="1,0,1,0,c,c" />
+					<cell type="label" name="idcategoriearticle" pos="2,0,2,0,c,c" />
+					<cell type="label" name="datecreation" pos="3,0,3,0,c,c" />
+					<cell type="label" name="datesuppression" pos="4,0,4,0,c,c" />
+					<cell type="label" name="${idarticle}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${nomarticle}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${idcategoriearticle}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${datecreation}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${datesuppression}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-sm btn-secondary" pos="5,1,5,1,c,c" ref_id="Report-21d9" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="bi-chevron_double_left" ref_id="Report-21d9" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="bi-chevron_left" ref_id="Report-21d9" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="bi-chevron_right" ref_id="Report-21d9" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>
