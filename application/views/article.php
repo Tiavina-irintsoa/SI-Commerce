@@ -13,43 +13,42 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
-              <div class="buy-now">
+            <div class="buy-now">
                 <a
-                  href=<?= base_url("fournisseur/create") ?>
+                  href=<?= base_url("article/create") ?>
                   target="_blank"
                   class="btn btn-primary btn-buy-now"
-                  style="box-shadow:0 1px 20px 1px #696CFF;">Ajouter fournisseur</a
+                  style="box-shadow:0 1px 20px 1px #696CFF;">Ajouter article</a
                 >
-              </div>
-              <div class="card">
+              </div>  
+            <div class="card">
                 <h5 class="card-header"> Listes des fournisseurs </h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
                       <tr>
                         <th>Nom</th>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th>Catégorie</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php foreach ($fournisseurs as $fournisseur): ?>
+                    <?php foreach ($articles as $article): ?>
                         <tr>
                             <td>
-                            <span class="fw-medium"><?= $fournisseur['nomfournisseur'] ?></span>
+                            <span class="fw-medium"><?= $article['nomarticle'] ?></span>
                             </td>
-                            <td><?= $fournisseur['emailfournisseur'] ?></td>
+                            <td><?= $article['libellecategorie'] ?></td>
                             <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                 <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/edit?{$id}={$fournisseur[$id]}") ?>"
+                                <a class="dropdown-item" href="<?= base_url("article/edit?{$id}={$article[$id]}") ?>"
                                     ><i class="bx bx-edit-alt me-1"></i> Modifier </a
                                 >
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/remove?{$id}={$fournisseur[$id]}") ?>"
+                                <a class="dropdown-item" href="<?= base_url("article/remove?{$id}={$article[$id]}") ?>"
                                     ><i class="bx bx-trash me-1"></i> Supprimer</a
                                 >
                                 </div>

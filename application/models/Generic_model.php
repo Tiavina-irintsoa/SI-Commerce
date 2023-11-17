@@ -10,9 +10,28 @@ class Generic_model extends CI_Model {
     }
 
     public function afficherRequete() {
-        echo $this->db->last_query();
+        echo $this->db->last_query().'</br>';
     }
 
+
+    public function getLast($table , $id_name , $result_type = 'array' ) {
+        $this->db->from($table);
+        $this->db->order_by($id_name, 'DESC');
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        
+
+        if ($query->num_rows() > 0) {                
+            if ($result_type === 'object') {
+                return $query->row();
+            } else {
+                return $query->row_array();
+            }    
+        }
+
+        return null;
+    }
 
     public function get_all($table, $order_by = null, $order_type = 'asc', $result_type = 'array') {
         // Vérifiez si un ordre est spécifié
@@ -34,8 +53,21 @@ class Generic_model extends CI_Model {
             return $query->row();
         } else {
             return $query->row_array();
-        }    }
+        }    
+    }
     
+    public function get_by_id_list($table, $id, $result_type = 'array') {
+        $this->db->from($table);
+        $this->db->where($id['name'], $id['value']);
+    
+        $query = $this->db->get();
+    
+        if ($result_type === 'object') {
+            return $query->result();
+        } else {
+            return $query->result();
+        }    
+    }
 
     public function insert($table, $data) {
         // Insérer un nouvel enregistrement
@@ -43,9 +75,9 @@ class Generic_model extends CI_Model {
     }
 
     public function update($table, $id , $data) {
-        // Mettre à jour un enregistrement en fonction de l'ID
-        $this->db->where($id['name'] , $id['value']);
-        return $this->db->update($table, $data);
+        $this->db->set( $data );
+        $this->db->where( array( $id['name']  => $id['value'] ) );
+        return $this->db->update($table);
     }
 
     public function delete($table, $id) {
