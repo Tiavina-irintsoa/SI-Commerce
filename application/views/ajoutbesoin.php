@@ -29,7 +29,7 @@
                           <div class="col-sm-10"  id="details">
                             <div class="row" >
                               <div class="col-sm-9">
-                                <select class="form-control" name="article" id="select-article">
+                                <select class="form-control" name="article[]" id="select-article">
                                   <?php
                                     foreach ($articles as $article ) { ?>
                                         <option value="<?= $article['idarticle']?>"><?= $article['nomarticle']?> </option>
@@ -39,7 +39,7 @@
                                 </select>
                               </div>
                               <div class="col-sm-3">
-                                  <input type="number" class="form-control" id="basic-default-name" name = "quantite" placeholder="Quantite" />
+                                  <input type="number" class="form-control" id="basic-default-name" name = "quantite[]" placeholder="Quantite" />
                               </div>
                             </div>
                             <div class="display-flex justify-content-end mt-4" id="adddetails">
@@ -76,12 +76,12 @@
               // Ajoutez le contenu du nouveau #details (vous pouvez le personnaliser selon vos besoins)
               nouveauDetails.innerHTML = `
                 <div class="col-sm-9 ">
-                  <select class="form-control" id="basic-default-company" name="article">
+                  <select class="form-control" id="basic-default-company" name="article[]">
                     `+select_article.innerHTML+`
                   </select>
                 </div>
                 <div class="col-sm-3">
-                  <input type="number" class="form-control" id="basic-default-name" name="quantite" placeholder="Quantite" />
+                  <input type="number" class="form-control" id="basic-default-name" name="quantite[]" placeholder="Quantite" />
                 </div>
               `;
 

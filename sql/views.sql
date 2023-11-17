@@ -38,7 +38,7 @@ create or replace view v_besoin_non_consulte as(
     where dateValidation is null and dateRefus is null
 );
 create or replace view v_besoin_semaine as (
-    select * from v_besoin_valide
+    select * from v_besoin_non_consulte
     where extract(week from dateBesoin)  = extract(week from now()) and extract(year from dateBesoin) = extract (year from now())
 );
 create or replace view v_besoin_semaine_avant_non_consulte as(
@@ -97,3 +97,11 @@ create or replace view v_article_fournisseur as
         join v_article_categorie as a on a.idarticle = af.idarticle
     ; 
 
+create or replace view v_besoin_semaine_personnel_poste as 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
+    from v_besoin_semaine as bs 
+        join personnel as p 
+        on p.matricule = bs.idPersonnel
+        join poste as po 
+        on po.idposte = p.idposte
+    ;

@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Fournisseur extends CI_Controller {
+require_once "UserSession.php";
 
+class Fournisseur extends UserSession {
     public function __construct() {
         parent::__construct();
         $this->id_name = "idfournisseur";
