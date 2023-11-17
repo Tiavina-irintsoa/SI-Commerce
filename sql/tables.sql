@@ -10,6 +10,7 @@ create table categorieArticle(
 create table article(
     idArticle serial primary key,
     nomArticle varchar,
+    tva numeric, 
     idCategorieArticle integer references categorieArticle(idCategorieArticle),
     dateCreation timestamp default now(),
     dateSuppression timestamp 
