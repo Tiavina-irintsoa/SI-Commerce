@@ -43,6 +43,25 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">TVA</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"
+                                ><i class="bx bx-user"></i
+                              ></span>
+                              <input
+                                type="text"
+                                value="<?= isset($input_value) && $input_value["tva"] ?  $input_value['tva'] : set_value("tva")   ?>"
+                                class="form-control"
+                                id="basic-icon-default-fullname"
+                                placeholder="TVA"
+                                aria-label="John Doe"
+                                name="tva"
+                                aria-describedby="basic-icon-default-fullname2" />
+                            </div>
+                          </div>
+                        </div>
                         <?php  if( isset( $input_value[$id_name] )  ){  ?>
                           <input  type="hidden" name="<?= $id_name ?>"  value="<?= $input_value[$id_name] ?>" >
                         <?php } ?>

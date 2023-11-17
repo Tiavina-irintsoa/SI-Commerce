@@ -29,6 +29,7 @@
                       <tr>
                         <th>Nom</th>
                         <th>Catégorie</th>
+                        <th>TVA</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -39,6 +40,7 @@
                             <span class="fw-medium"><?= $article['nomarticle'] ?></span>
                             </td>
                             <td><?= $article['libellecategorie'] ?></td>
+                            <td><?= $article['tva'] ?></td>
                             <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

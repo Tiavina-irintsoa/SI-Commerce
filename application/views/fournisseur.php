@@ -13,7 +13,6 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
               <div class="buy-now">
                 <a
                   href=<?= base_url("fournisseur/create") ?>
@@ -30,7 +29,7 @@
                       <tr>
                         <th>Nom</th>
                         <th>Email</th>
-                        <th>Status</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

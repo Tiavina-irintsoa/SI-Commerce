@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once "UserSession.php";
 
-class Article extends CI_Controller {
+class Article extends UserSession {
 
     public function __construct() {
         parent::__construct();
@@ -9,7 +10,7 @@ class Article extends CI_Controller {
         $this->id_name = "idarticle";
         $this->table = "article"; 
         $this->all = "articles";
-        $this->view = "v_article";
+        $this->view = "v_article_categorie";
         $this->orderby = "nomarticle";
         $this->load->model('generic_model' , 'gm'); // Chargez le modèle générique
         $this->categoriearticle = $this->gm->get_all("categoriearticle")  ;
@@ -50,6 +51,7 @@ class Article extends CI_Controller {
 
     public function insert() {
         $data = array(
+            'tva' => $this->input->post('tva'),
             'nomarticle' => $this->input->post('nomarticle'),
             'idcategoriearticle' => $this->input->post('idcategoriearticle')
         );
@@ -65,6 +67,7 @@ class Article extends CI_Controller {
         ;
 
         $data = array(
+            'tva' => $this->input->post('tva'),
             'nomarticle' => $this->input->post('nomarticle'),
             'idcategoriearticle' => $this->input->post('idcategoriearticle')
         );
