@@ -9,7 +9,7 @@ class Article extends CI_Controller {
         $this->id_name = "idarticle";
         $this->table = "article"; 
         $this->all = "articles";
-        $this->view = "v_article";
+        $this->view = "v_article_categorie";
         $this->orderby = "nomarticle";
         $this->load->model('generic_model' , 'gm'); // Chargez le modèle générique
         $this->categoriearticle = $this->gm->get_all("categoriearticle")  ;

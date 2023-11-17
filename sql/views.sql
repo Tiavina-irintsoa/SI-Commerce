@@ -7,6 +7,7 @@ create or replace view v_chef_service as(
     join personnel
         on personnel.idposte = poste.idposte
 );
+
 create or replace view v_service_poste_personnel as(
     select 
     personnel.matricule,poste.idposte,service.idservice
@@ -16,6 +17,7 @@ create or replace view v_service_poste_personnel as(
     join service
         on service.idService = poste.idservice
 );
+
 create or replace view v_article as(
     select 
     * 
@@ -47,7 +49,7 @@ create or replace view v_besoin_valide_sans_proforma as(
     select 
     * 
     from v_besoin_valide
-    where dateproforma is null
+    where demandeProforma is null
 );
 create or replace view v_besoin_par_nature as 
     select
@@ -66,12 +68,32 @@ create or replace view v_fournisseur as(
     from fournisseur
     where datesuppression is null
 );
-create or replace view v_article_fournisseur as (
-    select 
-    v_fournisseur.nomFournisseur,v_article.idArticle, v_article.nomArticle,v_fournisseur.idFournisseur
-    from v_article
-    join articleFournisseur
-        on articleFournisseur.idArticle = v_article.idArticle
-    join v_fournisseur
-        on v_fournisseur.idFournisseur = articleFournisseur.idFournisseur            
-);
+
+create or replace view v_fournisseur as 
+    select * 
+    from fournisseur 
+    where dateSuppression is null;
+
+create or replace view v_article_categorie as 
+    select * 
+    from v_article 
+    natural join categorieArticle;
+
+create or replace view v_fournisseur as 
+    select * 
+    from fournisseur 
+    where dateSuppression is null;
+
+
+create or replace view v_article_categorie as 
+    select * 
+    from v_article 
+    natural join categorieArticle;
+
+create or replace view v_article_fournisseur as 
+    select a.idarticle , f.idfournisseur , a.idcategoriearticle , a.nomarticle , f.emailfournisseur , f.nomfournisseur 
+    from articlefournisseur as af 
+        join v_fournisseur as f on af.idfournisseur = f.idfournisseur
+        join v_article_categorie as a on a.idarticle = af.idarticle
+    ; 
+
