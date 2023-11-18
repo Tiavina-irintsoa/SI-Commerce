@@ -28,6 +28,10 @@ class Welcome extends CI_Controller {
 			redirect('welcome/login');
 		}
 	}	
+	public function start(){
+		$this->load->view("welcome");
+	}
+
 	public function login(){
 
 		$this->load->view('login');
