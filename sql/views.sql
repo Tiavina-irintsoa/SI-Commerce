@@ -69,21 +69,12 @@ create or replace view v_fournisseur as(
     where datesuppression is null
 );
 
-create or replace view v_fournisseur as 
-    select * 
-    from fournisseur 
-    where dateSuppression is null;
 
+-- ralph
 create or replace view v_article_categorie as 
     select * 
     from v_article 
     natural join categorieArticle;
-
-create or replace view v_fournisseur as 
-    select * 
-    from fournisseur 
-    where dateSuppression is null;
-
 
 create or replace view v_article_categorie as 
     select * 
@@ -105,3 +96,47 @@ create or replace view v_besoin_semaine_personnel_poste as
         join poste as po 
         on po.idposte = p.idposte
     ;
+
+create or replace view v_detailbesoin_group as  
+    select idbesoin , idarticle , sum(quantite) as quantite
+    from detailbesoin as d 
+    group by idarticle , idbesoin;
+
+create or replace view v_article_detailbesoin as  
+    select *
+    from v_detailbesoin_group as d 
+        natural join article as a; 
+
+create or replace view v_besoin_semaine_personnel_poste_all as 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
+    from v_besoin_non_consulte as bs 
+        join personnel as p 
+        on p.matricule = bs.idPersonnel
+        join poste as po 
+        on po.idposte = p.idposte
+    ;
+
+create or replace view v_besoin_valide_semaine as 
+    select * from v_besoin_valide
+    where extract(week from dateBesoin)  = extract(week from now()) and extract(year from dateBesoin) = extract (year from now())
+;
+
+
+create or replace view v_besoin_valide_semaine_personnel_poste_all as 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
+    from v_besoin_valide_semaine as bs 
+        join personnel as p 
+        on p.matricule = bs.idPersonnel
+        join poste as po 
+        on po.idposte = p.idposte
+;
+
+create or replace view v_besoin_valide_personnel_poste_all as 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
+    from v_besoin_valide as bs 
+        join personnel as p 
+        on p.matricule = bs.idPersonnel
+        join poste as po 
+        on po.idposte = p.idposte
+;
+

@@ -10,6 +10,7 @@ class Article extends UserSession {
         $this->id_name = "idarticle";
         $this->table = "article"; 
         $this->all = "articles";
+        $this->nav_name="article";
         $this->view = "v_article_categorie";
         $this->orderby = "nomarticle";
         $this->load->model('generic_model' , 'gm'); // Chargez le modèle générique
@@ -18,12 +19,14 @@ class Article extends UserSession {
 
 
     public function index() {
+        $data["nav_name"] = $this->nav_name;
         $data[$this->all] = $this->gm->get_all($this->view , $this->orderby);
         $data['id'] = $this->id_name;
         $this->load->view($this->table, $data);
     }
 
     public function create(){
+        $data["nav_name"] = $this->nav_name;
         $data["categories"] = $this->categoriearticle;
         $data['nom'] = "ajout";
         $data["bouton"] = "Ajouter";
@@ -33,6 +36,7 @@ class Article extends UserSession {
     }
 
     public function edit(){
+        
         $id =  array(
             "name" =>  $this->id_name,
             "value" => $this->input->get($this->id_name))
@@ -40,6 +44,7 @@ class Article extends UserSession {
         $data= array(
             $this->id_name => $id['value']
         );
+        $data["nav_name"] = $this->nav_name;
         $data["categories"] = $this->categoriearticle;
         $data["bouton"] = "Modifier";
         $data["url"] = base_url($this->table."/update");

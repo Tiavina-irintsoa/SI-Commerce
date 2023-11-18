@@ -6,6 +6,7 @@ require_once "UserSession.php";
 class Fournisseur extends UserSession {
     public function __construct() {
         parent::__construct();
+        $this->nav_name = "fournisseur";
         $this->id_name = "idfournisseur";
         $this->table = "fournisseur"; 
         $this->all = "fournisseurs";
@@ -17,12 +18,14 @@ class Fournisseur extends UserSession {
 
 
     public function index() {
+        $data["nav_name"] = $this->nav_name;
         $data[$this->all] = $this->gm->get_all($this->view);
         $data['id'] = $this->id_name;
         $this->load->view($this->table, $data);
     }
 
     public function create(){
+        $data["nav_name"] = $this->nav_name;
         $data['nom'] = "ajout";
         $data["bouton"] = "Ajouter";
         $data['id_name']= $this->id_name;
@@ -39,6 +42,7 @@ class Fournisseur extends UserSession {
         $data= array(
             $this->id_name => $id['value']
         );
+        $data["nav_name"] = $this->nav_name;
         $data["articles"] = $this->gm->get_by_id_list("v_article_fournisseur" , $id  );
         $data["bouton"] = "Modifier";
         $data["url"] = base_url($this->table."/update");
