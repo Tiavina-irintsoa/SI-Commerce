@@ -3,10 +3,14 @@
               <h4 class="py-3 mb-4"><span class="text-muted fw-light">Besoin /</span>Liste Par Nature</h4>
               <div class="card">
               <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Besoins </h5>
-                      <a href="<?=site_url('demandeProforma')?>">
+                      <h5 class="mb-0">Besoins</h5>
+                      <?php
+                        if(count($besoins)>0){ ?>
+                          <a href="<?=site_url('demandeProforma')?>">
                         <button type="button" class="float-end btn btn-primary">Faire une demande de Proforma</button>
                       </a>
+                    <?php    }
+                      ?>
 
                     </div>
                 <div class="table-responsive text-nowrap">

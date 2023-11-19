@@ -60,8 +60,10 @@
               </div>
 
               <hr class="my-5" />
-              <div class="card">
-                <h5 class="card-header"> <?= $title_all ?></h5>
+              <?php
+                if(isset($all_besoins)){ ?>
+                  <div class="card">
+                <div class="alert alert-danger"> <?= $title_all ?></div>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
@@ -98,6 +100,8 @@
                   </table>
                 </div>
               </div>
+              <?php  }
+              ?>
             </div>
 
             <div class="col-lg-4 mb-4 order-0 hidden" id="popup_besoin"  style="position:absolute; right:196px; top:100px; width:50vw; opacity: 0; transition: opacity 0.5s, z-index 0.5s;"  >
