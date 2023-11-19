@@ -20,7 +20,10 @@
 
         }
         public function doGenerate(){
+            $iddemande = $this->input->get('iddemande');
             $data=array();
+            $data['bon'] = $this->pm->getMoinsDisantParArticles($iddemande);
+            $this->session->set_userdata('bon',$data['bon']);
             $data['title'] = 'Generer un bon de commande';
             $data['page']='moins_disant';
             $this->load->view('template',$data);
