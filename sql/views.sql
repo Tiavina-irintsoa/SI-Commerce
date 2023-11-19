@@ -204,7 +204,7 @@ cross join v_annee_besoin
 cross join ( 
     select idarticle 
     from article
-)
+) as article
 ;
 
 create or replace view v_besoin_details as  
