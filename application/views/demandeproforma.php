@@ -31,7 +31,7 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Délai de livraison </label>
                           <div class="col-sm-10">
-                            <input type="date" class="form-control" id="basic-default-name" name = "date" />
+                            <input type="date"  value="<?= $today ?>" class="form-control" id="basic-default-name" name = "date" />
                           </div>
                         </div>
                         
@@ -48,7 +48,7 @@
                                     <?php
                                     foreach ($article['fournisseurs'] as $fournisseur) { ?>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="FOURNISSEUR<?= $article['idarticle']?>" id="" >
+                                            <input class="form-check-input" type="checkbox" name="FOURNISSEUR<?= $article['idarticle']?>[]" value="<?= $fournisseur['idfournisseur'] ?>" id="" >
                                             <label class="form-check-label" for=""> <?= $fournisseur['nomfournisseur'] ?> </label>
                                         </div>
                                     <?php    } ?>
@@ -66,6 +66,7 @@
                                     ?>
                                 </div>
                             </div>
+                          </hr>
                         <?php    }
                         ?>    
                         </div>

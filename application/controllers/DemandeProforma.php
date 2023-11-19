@@ -24,14 +24,13 @@
                 $date = $this->input->post('date');
             
             $articles = $this->session->articles;
-            
             for ($i=0; $i <count($articles) && !$error ; $i++) { 
                 if(!isset($_POST['FOURNISSEUR'.$articles[$i]['idarticle']])){
                     $this->index('Fournisseurs invalides pour '.$articles[$i]['nomarticle']);
                     $error = true;
                 }
-                else{
-                    $fournisseurs = $this->input->post($articles[$i]['idarticle']);
+                else{ 
+                    $fournisseurs = $this->input->post('FOURNISSEUR'.$articles[$i]['idarticle']);
                     $fournisseurs = is_array($fournisseurs) ? $fournisseurs : [$fournisseurs];
                     $articles[$i]['fournisseurs_choisis'] = $fournisseurs;
                 }
@@ -48,6 +47,7 @@
             }
         }
         public function index($erreur = null){
+            $data['today']= date("Y-m-d");
             $data['page'] = 'demandeproforma';
             $data['title'] = 'Faire une demande de proforma';
             $data['erreur']  =$erreur;
