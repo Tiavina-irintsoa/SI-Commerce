@@ -70,6 +70,15 @@
                 </a>
               
             </li>
+            <li class="menu-item open">
+                <a
+                href="<?= site_url('DemandeProforma/listeParNature') ?>"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-store"></i>
+                <div data-i18n="Email">Demader des proformas</div>
+                </a>
+              
+            </li>
             <li class="menu-item open <?= isset($nav_name) && $nav_name == "proforma" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/proforma/delai') ?>"
