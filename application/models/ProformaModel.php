@@ -6,6 +6,7 @@
             parent::__construct();
             $this->load->Model('Generic_model' , 'gm');
         }
+        
 
         public function insertSaisie( $detaisproforma , $idfournisseur , $iddemande  ){
             $this->db->trans_start();
@@ -48,6 +49,14 @@
                     $this->db->insert('fournisseurdemandeproforma', $detailsFournisseurArticle);
                 }
             }
+            $data = array(
+                'dateproforma' => date('Y-m-d H:i:s'),
+            );
+            
+            $this->db->where('dateproforma IS NULL', null, false);
+            $this->db->where('datevalidation IS NOT NULL', null, false);
+            $this->db->update('besoin', $data);
+            
             $this->db->trans_complete();
 
             if ($this->db->trans_status() === FALSE) {

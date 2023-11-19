@@ -20,9 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		var_dump( $this->session );
 		if($this->session->has_userdata('user')){
-			echo 'connected';
+			redirect('welcome/start');
 		}
 		else{
 			redirect('welcome/login');

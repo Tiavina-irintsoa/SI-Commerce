@@ -19,4 +19,8 @@ class Auth extends CI_Controller{
             redirect("welcome/start");
         }
     }
+    public function disconnect(){
+        $this->session->sess_destroy();
+        redirect('Welcome');
+    }
 }
