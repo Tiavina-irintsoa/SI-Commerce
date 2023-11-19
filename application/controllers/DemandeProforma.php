@@ -6,6 +6,21 @@
             parent::__construct();
             $this->load->Model('BesoinModel');
             $this->load->Model('ProformaModel');
+            $this->load->model('PdfModel' , 'pdf');
+        }
+        public function pdf(){
+            
+            ob_start();
+            $data = array(
+                array("Colonne 1", "Colonne 2"),
+                array("Donnée 1", "Donnée 2"),
+                array("Donnée 4", "Donnée 5")
+            );
+            $societe = 'Miraculous';
+            $f = 'Fournisseur';
+            $delai = '08-08-2023';
+            $this->pdf->liste_proforma($societe, $f, $delai, $data);            
+            ob_end_flush();      
         }
         public function listeParNature(){
             $data=array();

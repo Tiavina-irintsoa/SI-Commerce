@@ -21,6 +21,8 @@ class PdfModel extends CI_Model{
         $pdf->SetFont('Arial','',14);
         $pdf->Cell(60,8, $fournisseur);
         
+        
+        
         $pdf->Ln();
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Cell(20,8,'Date : ');
@@ -91,11 +93,11 @@ class PdfModel extends CI_Model{
         require_once(APPPATH . 'libraries/fpdf/fpdf.php');
 
         $pdf = new FPDF();
-        $this->content_performa($pdf, $societe, $fournisseur, $delai, $data);
+        $this->content_proforma($pdf, $societe, $fournisseur, $delai, $data);
         $pdf->Output('proforma.pdf', 'I');
     }
 
-    public function content_performa($pdf, $societe, $fournisseur, $delai, $data){
+    public function content_proforma($pdf, $societe, $fournisseur, $delai, $data){
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','B',24);
@@ -138,9 +140,9 @@ class PdfModel extends CI_Model{
 
         $pdf = new FPDF();
         
-        $this->content_performa($pdf, $societe, $fournisseur, $delai, $data);
-        $this->content_performa($pdf, $societe, $fournisseur, $delai, $data);
-        $this->content_performa($pdf, $societe, $fournisseur, $delai, $data);
+        $this->content_proforma($pdf, $societe, $fournisseur, $delai, $data);
+        $this->content_proforma($pdf, $societe, $fournisseur, $delai, $data);
+        $this->content_proforma($pdf, $societe, $fournisseur, $delai, $data);
 
         $pdf->Output('proforma.pdf', 'I');
     }
