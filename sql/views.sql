@@ -31,6 +31,7 @@ create or replace view v_besoin_valide as(
     from besoin 
     where datevalidation is not null
 );
+
 create or replace view v_besoin_non_consulte as(
     select 
     * 
@@ -89,7 +90,7 @@ create or replace view v_article_fournisseur as
     ; 
 
 create or replace view v_besoin_semaine_personnel_poste as 
-    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice , 
     from v_besoin_semaine as bs 
         join personnel as p 
         on p.matricule = bs.idPersonnel
@@ -115,6 +116,14 @@ create or replace view v_besoin_semaine_personnel_poste_all as
         join poste as po 
         on po.idposte = p.idposte
     ;
+
+create or replace view v_besoin_semaine_personnel_poste_pas_semaine as 
+select * 
+from v_besoin_semaine_personnel_poste_all as bsa
+except 
+select * 
+from v_besoin_semaine_personnel_poste;
+
 
 create or replace view v_besoin_valide_semaine as 
     select * from v_besoin_valide
@@ -162,3 +171,10 @@ create or replace  view v_demande_proforma_fournisseur_article as
     select *  
     from v_demande_proforma_fournisseur_groub_article as f
         natural join article;
+
+-- raha efa natao saisie le proforma
+create or replace view v_detailsdemandeproforma_article as 
+    select *  
+    from detailsproforma as d 
+        natural join article as  a 
+    ;

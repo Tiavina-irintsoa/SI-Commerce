@@ -53,6 +53,8 @@
                 "iddemande" => $iddemande
             );
             $data['demandes'] =  $this->gm->get_all("v_demande_proforma_fournisseur_nom"  , "idfournisseur" ,  'asc', 'array', $where ); 
+            $data['proforma'] =  $this->gm->get_all("proforma"  , "iddemande" ,'asc', 'array', $where ); 
+            $data['details_proforma'] =  $this->gm->get_all("v_detailsdemandeproforma_article"  , "iddemande" ,'asc', 'array', $where ); 
             $data['articles'] =  $this->gm->get_all("v_demande_proforma_fournisseur_article"  , "idfournisseur , idarticle" ,  'asc', 'array', $where ); 
             $data["titre_liste"] = "Listes des demandes de proforma envoyés par fournisseur";
             $this->load->view("demande_par_fournisseur" , $data);

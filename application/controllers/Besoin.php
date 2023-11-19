@@ -34,13 +34,16 @@
         }
 
         public function validation(){
+            $idservice = $_SESSION['user']['service'];
             $data["page"] = "validation";
             $data["nav_name"] = $this->nav_name;
             $data["url"] = "besoin/validation_all";
+            $data["title_all"] = "Listes des besoin non validés avant cette semaine ";
             $data["titre_liste"] = "Listes des besoin non validés de cette semaine ";
             $data["titre_bouton"] = "Afficher tous les besoins non validés";
             $data["detail_besoin"] = $this->gm->get_all("v_article_detailbesoin" , "idbesoin" ); 
-            $data["besoins"] =  $this->gm->get_all("v_besoin_semaine_personnel_poste", "datebesoin" );
+            $data["all_besoins"] = $this->gm->get_all("v_besoin_semaine_personnel_poste_pas_semaine", "datebesoin" ,  "asc" , "array" , array( "idservice" => $idservice )  );
+            $data["besoins"] =  $this->gm->get_all("v_besoin_semaine_personnel_poste", "datebesoin" , "asc" , "array" , array( "idservice" => $idservice )  );
             $this->load->view("besoin_valide" , $data);
         }
 

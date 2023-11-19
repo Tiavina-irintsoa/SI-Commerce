@@ -13,13 +13,13 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="buy-now">
+            <!-- <div class="buy-now">
                 <a
                   href=<?= base_url($url) ?>
                   class="btn btn-primary btn-buy-now"
                   style="box-shadow:0 1px 20px 1px #696CFF;"><?= $titre_bouton ?></a
                 >
-              </div>  
+              </div>   -->
             <div class="card">
                 <h5 class="card-header"> <?= $titre_liste ?></h5>
                 <div class="table-responsive text-nowrap">
@@ -60,7 +60,44 @@
               </div>
 
               <hr class="my-5" />
-
+              <div class="card">
+                <h5 class="card-header"> <?= $title_all ?></h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Personnel</th>
+                        <th>Poste</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    <?php foreach ($all_besoins as $b): ?>
+                        <tr>
+                            <td>
+                            <span class="fw-medium"><?= $b['nompersonnel'] ?></span>
+                            </td>
+                            <td><?= $b['nomposte'] ?></td>
+                            <td><?= $b['datebesoin'] ?></td>
+                            <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" style="cursor:pointer;"  onclick="filterDetailBesoinById('<?= $b['idbesoin'] ?>')"
+                                    ><i class="bx bx-edit-alt me-1"></i> Voir détails </a
+                                >
+                                </div>
+                            </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4 mb-4 order-0 hidden" id="popup_besoin"  style="position:absolute; right:300px; top:100px; opacity: 0; transition: opacity 0.5s, z-index 0.5s;"  >
