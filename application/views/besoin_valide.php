@@ -88,7 +88,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" style="cursor:pointer;"  onclick="filterDetailBesoinById('<?= $b['idbesoin'] ?>' , <?= $b['datebesoin'] ?>  )"
+                                <a class="dropdown-item" style="cursor:pointer;"  onclick="filterDetailBesoinById('<?= $b['idbesoin'] ?>' , '<?= $b['datebesoin'] ?>' )"
                                     ><i class="bx bx-edit-alt me-1"></i> Voir détails </a
                                 >
                                 </div>
@@ -162,13 +162,15 @@
                         popupDiv.style.zIndex = 1;
                     }
                     function getDate( date ){
+                      console.log( date );
                       // Convertir la chaîne en objet Date
                       var dateObject = new Date(date);
 
                       // Extraire le mois (0-11, où 0 correspond à janvier)
                       var month = dateObject.getMonth() + 1; // Ajoutez 1 car les mois commencent à 0
                       console.log("Mois :", month);
-
+                      console.log( "date : " );
+                      console.log( dateObject );
                       // Extraire l'année
                       var year = dateObject.getFullYear();
                       return {

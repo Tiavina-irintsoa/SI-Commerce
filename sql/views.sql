@@ -213,12 +213,12 @@ create or replace view v_besoin_details as
     natural join detailBesoin;
 
 create or replace view v_qte_par_mois as 
-select extract( 'year' from datevalidation ) as annee , 
-extract( 'month' from datevalidation ) as mois , 
+select extract( 'year' from datebesoin ) as annee , 
+extract( 'month' from datebesoin ) as mois , 
 idarticle , idpersonnel , sum( quantite ) as quantite
 from v_besoin_details 
-group by  extract( 'year' from datevalidation ) , 
-extract( 'month' from datevalidation ) , 
+group by  extract( 'year' from datebesoin ) , 
+extract( 'month' from datebesoin ) , 
 idarticle , idpersonnel;
 
 
@@ -287,4 +287,48 @@ join v_article
         on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
         and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
     );
+    
+CREATE MATERIALIZED VIEW v_mois AS
+SELECT id_month AS mois
+FROM mois;
 
+
+create or replace view v_annee_besoin as 
+    select extract( 'year' from datebesoin ) as annee
+    from besoin as b 
+    group by extract( 'year' from datebesoin )
+    ;
+
+create or replace view v_annee_mois_besoin as 
+select *
+from v_mois
+cross join v_annee_besoin
+cross join ( 
+    select idarticle 
+    from article
+)
+;
+
+create or replace view v_besoin_details as  
+    select * 
+    from v_besoin_valide as besoin 
+    natural join detailBesoin;
+
+create or replace view v_qte_par_mois as 
+select extract( 'year' from datevalidation ) as annee , 
+extract( 'month' from datevalidation ) as mois , 
+idarticle , idpersonnel , sum( quantite ) as quantite
+from v_besoin_details 
+group by  extract( 'year' from datevalidation ) , 
+extract( 'month' from datevalidation ) , 
+idarticle , idpersonnel;
+
+
+create or replace view v_qte_par_mois_all as 
+select am.annee , am.mois , am.idarticle , coalesce( quantite , 0 ) as quantite
+from v_qte_par_mois as qm 
+    right join v_annee_mois_besoin as am 
+    on qm.annee = am.annee 
+    and qm.mois = am.mois
+    and qm.idarticle = am.idarticle 
+;
