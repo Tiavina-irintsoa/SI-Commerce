@@ -215,3 +215,4 @@ INSERT INTO chef_service (idService, idposte) VALUES
 insert into achat values(1);
 insert into commercial values(7);
 insert into finance values(2);
+insert into modePaiement (nomMode) values('Cheque'),('Virement');
