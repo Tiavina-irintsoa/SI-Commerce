@@ -12,12 +12,18 @@
         public function generate(){
             $iddemande = $this->input->get('iddemande');
             if($this->pm->verifier($iddemande)){
-                echo 'verifie';
+                redirect('Proforma/doGenerate?iddemande='.$iddemande);
             }
             else{
                 $this->delai("Des fournisseurs n'ont pas encore envoye de proforma");
             }
 
+        }
+        public function doGenerate(){
+            $data=array();
+            $data['title'] = 'Generer un bon de commande';
+            $data['page']='moins_disant';
+            $this->load->view('template',$data);
         }
         public function saisie_submit(){
             $pu = $this->input->post("pu");
