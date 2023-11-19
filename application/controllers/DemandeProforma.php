@@ -8,20 +8,7 @@
             $this->load->Model('ProformaModel');
             $this->load->model('PdfModel' , 'pdf');
         }
-        public function pdf(){
-            
-            ob_start();
-            $data = array(
-                array("Colonne 1", "Colonne 2"),
-                array("Donnée 1", "Donnée 2"),
-                array("Donnée 4", "Donnée 5")
-            );
-            $societe = 'Miraculous';
-            $f = 'Fournisseur';
-            $delai = '08-08-2023';
-            $this->pdf->liste_proforma($societe, $f, $delai, $data);            
-            ob_end_flush();      
-        }
+
         public function listeParNature(){
             $data=array();
             $data['besoins'] = $this->BesoinModel->get_par_nature();
@@ -47,6 +34,10 @@
                 else{ 
                     $fournisseurs = $this->input->post('FOURNISSEUR'.$articles[$i]['idarticle']);
                     $fournisseurs = is_array($fournisseurs) ? $fournisseurs : [$fournisseurs];
+                    if(count($fournisseurs)<3){
+                        $this->index('Fournisseurs invalides pour '.$articles[$i]['nomarticle']);
+                        $error = true;
+                    }
                     $articles[$i]['fournisseurs_choisis'] = $fournisseurs;
                 }
                 if($error){
@@ -54,10 +45,10 @@
                 }
             }
             if($error==false){
-                $status  =$this->ProformaModel->insertAll($articles,$date);
-            if($status){
+                $user = $this->session->user;
+                $status  =$this->ProformaModel->sendDemande($articles,$date,$user);
+                $this->session->unset_userdata('articles');
                 redirect('demandeProforma/listeParNature');
-            }
             }
             }
         }

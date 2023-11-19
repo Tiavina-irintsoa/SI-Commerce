@@ -178,3 +178,22 @@ create or replace view v_detailsdemandeproforma_article as
     from detailsproforma as d 
         natural join article as  a 
     ;
+
+create or replace view v_fournisseur_demande_proforma as 
+select
+demandeProforma.*,v_fournisseur.idfournisseur,v_fournisseur.emailFournisseur,v_fournisseur.nomfournisseur,fournisseurDemandeProforma.idarticle
+from v_fournisseur
+join fournisseurDemandeProforma
+    on fournisseurDemandeProforma.idfournisseur = v_fournisseur.idfournisseur
+join demandeProforma
+    on demandeProforma.iddemande = fournisseurDemandeProforma.iddemande;
+
+create or replace view v_fournisseur_article_demande_proforma as
+select 
+fournisseurdemandeproforma.iddemande,fournisseurdemandeproforma.idfournisseur,fournisseurdemandeproforma.idArticle,detailsdemandeproforma.quantite,v_article.nomarticle
+from fournisseurdemandeproforma
+join detailsdemandeproforma
+    on detailsdemandeproforma.idarticle = fournisseurdemandeproforma.idarticle
+    and detailsdemandeproforma.iddemande = fournisseurdemandeproforma.iddemande
+join v_article
+    on v_article.idarticle =  detailsdemandeproforma.idarticle;

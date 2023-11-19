@@ -75,7 +75,7 @@
                 href="<?= site_url('DemandeProforma/listeParNature') ?>"
                 class="menu-link">
                 <i class="menu-icon tf-icons bx bx-store"></i>
-                <div data-i18n="Email">Demader des proformas</div>
+                <div data-i18n="Email">Demander des proformas</div>
                 </a>
               
             </li>

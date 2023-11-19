@@ -108,7 +108,7 @@ class Fournisseur extends UserSession {
         // $this->gm->afficherRequete();
         redirect($this->table); 
     }
-
+    
     public function remove(){
 
         $where = array(
