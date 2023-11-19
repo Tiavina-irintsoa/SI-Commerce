@@ -9,7 +9,16 @@
             $this->load->Model('ProformaModel' , 'pm');
         }
 
-        
+        public function generate(){
+            $iddemande = $this->input->get('iddemande');
+            if($this->pm->verifier($iddemande)){
+                echo 'verifie';
+            }
+            else{
+                $this->delai("Des fournisseurs n'ont pas encore envoye de proforma");
+            }
+
+        }
         public function saisie_submit(){
             $pu = $this->input->post("pu");
             $dispo = $this->input->post("dispo");
@@ -61,7 +70,10 @@
             $this->load->view("demande_par_fournisseur" , $data);
         }
     
-        public function delai(){
+        public function delai($error = null){
+            if($error!==null){
+                $data['error'] = $error;
+            }
             $data["nav_name"] = $this->nav_name;
             $data["demandes"] = $this->gm->get_all("demandeproforma"  , "delailivraison" ); 
             $data["titre_liste"] = "Listes des demandes par délai de livraison";

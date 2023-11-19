@@ -9,8 +9,27 @@
             $this->load->Model('PdfModel');
             $this->load->Model('EmailModel');
         }
-        
-       
+        public function verifier($iddemande){
+            $this->db->select('idfournisseur');
+            $this->db->from('proforma');
+            $this->db->where('iddemande', $iddemande);
+
+            $query = $this->db->get();
+            $nbrecu = $query->num_rows();
+
+            $this->db->select('idfournisseur');
+            $this->db->from('v_demande_proforma_fournisseur');
+            $this->db->where('iddemande', $iddemande);
+
+            $query = $this->db->get();
+            $nbenvoye = $query->num_rows();
+            
+            if($nbrecu!=$nbenvoye){
+                return false;
+            }
+            return true;
+
+        }
         public function insertSaisie( $detaisproforma , $idfournisseur , $iddemande  ){
             $this->db->trans_start();
             $this->gm->insert( "proforma" , array( "idfournisseur" => $idfournisseur , "iddemande" => $iddemande ) );

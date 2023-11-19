@@ -197,3 +197,12 @@ join detailsdemandeproforma
     and detailsdemandeproforma.iddemande = fournisseurdemandeproforma.iddemande
 join v_article
     on v_article.idarticle =  detailsdemandeproforma.idarticle;
+
+    create or replace view v_proforma_demande as (
+        select 
+        v_demande_proforma_fournisseur.idfournisseur,v_demande_proforma_fournisseur.iddemande
+        from v_demande_proforma_fournisseur
+        join proforma
+        on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
+        and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
+    );

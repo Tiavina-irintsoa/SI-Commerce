@@ -14,6 +14,12 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class="card">
+              <?php
+              if(isset($error)){?>
+                <div class="alert alert-danger">
+                  <?= $error ?>
+                </div>
+              <?php } ?>
                 <h5 class="card-header"> <?= $titre_liste ?></h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
