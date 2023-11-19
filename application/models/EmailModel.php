@@ -5,6 +5,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 class EmailModel extends CI_Model{
     public function send($destination,$namedestination,$path,$date,$user){
+        // $destination = 'rakotonirinairintsoa0@gmail.com';
         $mail = new PHPMailer;
         $mail->isSMTP();
         $mail->SMTPDebug = 2;

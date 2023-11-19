@@ -38,7 +38,7 @@
                                 <a class="dropdown-item" href="<?= base_url("proforma/demande_fournisseur?iddemande=".$b['iddemande']) ?>"
                                     ><i class="bx bx-edit-alt me-1"></i> Voir Détails </a
                                 >
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/remove?") ?>"
+                                <a class="dropdown-item" href="<?= site_url('Proforma/Generate?iddemande='.$b['iddemande']) ?>"
                                     ><i class="bx bxs-file me-1"></i> Génerer bon de commande</a
                                 >
                                 </div>
