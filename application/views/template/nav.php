@@ -79,6 +79,7 @@
                 </a>
               
             </li>
+            
             <li class="menu-item open <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/article') ?>"
@@ -118,15 +119,25 @@
                     </a>
                   </li>
                   <?php } ?>
-                
+                  
                 
                 
               </ul>
+              <li class="menu-item open">
+                <a
+                href="<?= site_url('Auth/disconnect') ?>"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-pencil"></i>
+                <div data-i18n="Email">Se déconnecter</div>
+                </a>
+              
+            </li>
             </li>
 
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Apps &amp; Pages</span>
             </li>
+
             <!-- Apps -->
             
             
@@ -164,4 +175,5 @@
             
             
           </ul>
+          
         </aside>
