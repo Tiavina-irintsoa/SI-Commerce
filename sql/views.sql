@@ -175,6 +175,58 @@ create or replace  view v_demande_proforma_fournisseur_article as
 -- raha efa natao saisie le proforma
 create or replace view v_detailsdemandeproforma_article as 
     select *  
-    from detailsproforma as d 
+    from detailsdemandeproforma as d 
         natural join article as  a 
     ;
+
+create or replace view v_detailsproforma_article as 
+    select *  
+    from detailsproforma as d 
+        natural join article as  a 
+        natural join proforma
+    ;
+
+CREATE MATERIALIZED VIEW v_mois AS
+SELECT id_month AS mois
+FROM mois;
+
+
+create or replace view v_annee_besoin as 
+    select extract( 'year' from datebesoin ) as annee
+    from besoin as b 
+    group by extract( 'year' from datebesoin )
+    ;
+
+create or replace view v_annee_mois_besoin as 
+select *
+from v_mois
+cross join v_annee_besoin
+cross join ( 
+    select idarticle 
+    from article
+)
+;
+
+create or replace view v_besoin_details as  
+    select * 
+    from v_besoin_valide as besoin 
+    natural join detailBesoin;
+
+create or replace view v_qte_par_mois as 
+select extract( 'year' from datevalidation ) as annee , 
+extract( 'month' from datevalidation ) as mois , 
+idarticle , idpersonnel , sum( quantite ) as quantite
+from v_besoin_details 
+group by  extract( 'year' from datevalidation ) , 
+extract( 'month' from datevalidation ) , 
+idarticle , idpersonnel;
+
+
+create or replace view v_qte_par_mois_all as 
+select am.annee , am.mois , am.idarticle , coalesce( quantite , 0 ) as quantite
+from v_qte_par_mois as qm 
+    right join v_annee_mois_besoin as am 
+    on qm.annee = am.annee 
+    and qm.mois = am.mois
+    and qm.idarticle = am.idarticle 
+;

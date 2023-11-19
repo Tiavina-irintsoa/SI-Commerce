@@ -41,6 +41,7 @@
             $data["title_all"] = "Listes des besoin non validés avant cette semaine ";
             $data["titre_liste"] = "Listes des besoin non validés de cette semaine ";
             $data["titre_bouton"] = "Afficher tous les besoins non validés";
+            $data["all_qte"] = $this->gm->get_all("v_qte_par_mois_all" , "idarticle" ); 
             $data["detail_besoin"] = $this->gm->get_all("v_article_detailbesoin" , "idbesoin" ); 
             $data["all_besoins"] = $this->gm->get_all("v_besoin_semaine_personnel_poste_pas_semaine", "datebesoin" ,  "asc" , "array" , array( "idservice" => $idservice )  );
             $data["besoins"] =  $this->gm->get_all("v_besoin_semaine_personnel_poste", "datebesoin" , "asc" , "array" , array( "idservice" => $idservice )  );
