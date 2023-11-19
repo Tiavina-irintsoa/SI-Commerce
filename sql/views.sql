@@ -179,10 +179,9 @@ create or replace view v_detailsdemandeproforma_article as
         natural join article as  a 
     ;
 
-<<<<<<< HEAD
 create or replace view v_detailsproforma_article as 
     select *  
-    from detailsdemandeproforma as d 
+    from detailsproforma as d 
         natural join article as  a 
         natural join proforma
     ;
@@ -231,35 +230,7 @@ from v_qte_par_mois as qm
     and qm.mois = am.mois
     and qm.idarticle = am.idarticle 
 ;
-=======
-create or replace view v_fournisseur_demande_proforma as 
-select
-demandeProforma.*,v_fournisseur.idfournisseur,v_fournisseur.emailFournisseur,v_fournisseur.nomfournisseur,fournisseurDemandeProforma.idarticle
-from v_fournisseur
-join fournisseurDemandeProforma
-    on fournisseurDemandeProforma.idfournisseur = v_fournisseur.idfournisseur
-join demandeProforma
-    on demandeProforma.iddemande = fournisseurDemandeProforma.iddemande;
 
-create or replace view v_fournisseur_article_demande_proforma as
-select 
-fournisseurdemandeproforma.iddemande,fournisseurdemandeproforma.idfournisseur,fournisseurdemandeproforma.idArticle,detailsdemandeproforma.quantite,v_article.nomarticle
-from fournisseurdemandeproforma
-join detailsdemandeproforma
-    on detailsdemandeproforma.idarticle = fournisseurdemandeproforma.idarticle
-    and detailsdemandeproforma.iddemande = fournisseurdemandeproforma.iddemande
-join v_article
-    on v_article.idarticle =  detailsdemandeproforma.idarticle;
-
-    create or replace view v_proforma_demande as (
-        select 
-        v_demande_proforma_fournisseur.idfournisseur,v_demande_proforma_fournisseur.iddemande
-        from v_demande_proforma_fournisseur
-        join proforma
-        on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
-        and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
-    );
->>>>>>> 3dea46de4cb72a6233118a2db3d11305ffcda169
 
 create or replace view v_fournisseur_demande_proforma as 
 select
@@ -288,47 +259,32 @@ join v_article
         on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
         and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
     );
-CREATE MATERIALIZED VIEW v_mois AS
-SELECT id_month AS mois
-FROM mois;
 
+create or replace view v_fournisseur_demande_proforma as 
+select
+demandeProforma.*,v_fournisseur.idfournisseur,v_fournisseur.emailFournisseur,v_fournisseur.nomfournisseur,fournisseurDemandeProforma.idarticle
+from v_fournisseur
+join fournisseurDemandeProforma
+    on fournisseurDemandeProforma.idfournisseur = v_fournisseur.idfournisseur
+join demandeProforma
+    on demandeProforma.iddemande = fournisseurDemandeProforma.iddemande;
 
-create or replace view v_annee_besoin as 
-    select extract( 'year' from datebesoin ) as annee
-    from besoin as b 
-    group by extract( 'year' from datebesoin )
-    ;
+create or replace view v_fournisseur_article_demande_proforma as
+select 
+fournisseurdemandeproforma.iddemande,fournisseurdemandeproforma.idfournisseur,fournisseurdemandeproforma.idArticle,detailsdemandeproforma.quantite,v_article.nomarticle
+from fournisseurdemandeproforma
+join detailsdemandeproforma
+    on detailsdemandeproforma.idarticle = fournisseurdemandeproforma.idarticle
+    and detailsdemandeproforma.iddemande = fournisseurdemandeproforma.iddemande
+join v_article
+    on v_article.idarticle =  detailsdemandeproforma.idarticle;
 
-create or replace view v_annee_mois_besoin as 
-select *
-from v_mois
-cross join v_annee_besoin
-cross join ( 
-    select idarticle 
-    from article
-)
-;
+    create or replace view v_proforma_demande as (
+        select 
+        v_demande_proforma_fournisseur.idfournisseur,v_demande_proforma_fournisseur.iddemande
+        from v_demande_proforma_fournisseur
+        join proforma
+        on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
+        and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
+    );
 
-create or replace view v_besoin_details as  
-    select * 
-    from v_besoin_valide as besoin 
-    natural join detailBesoin;
-
-create or replace view v_qte_par_mois as 
-select extract( 'year' from datevalidation ) as annee , 
-extract( 'month' from datevalidation ) as mois , 
-idarticle , idpersonnel , sum( quantite ) as quantite
-from v_besoin_details 
-group by  extract( 'year' from datevalidation ) , 
-extract( 'month' from datevalidation ) , 
-idarticle , idpersonnel;
-
-
-create or replace view v_qte_par_mois_all as 
-select am.annee , am.mois , am.idarticle , coalesce( quantite , 0 ) as quantite
-from v_qte_par_mois as qm 
-    right join v_annee_mois_besoin as am 
-    on qm.annee = am.annee 
-    and qm.mois = am.mois
-    and qm.idarticle = am.idarticle 
-;
