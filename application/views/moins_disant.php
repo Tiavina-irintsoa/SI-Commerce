@@ -1,4 +1,11 @@
           <!-- Content wrapper -->
+          <style>.right-number{
+            text-align:right;
+          }
+          table td{
+            padding-right:1vw!important;
+            padding-left:1vw!important;
+          }</style>
           <div class="content-wrapper">
             <!-- Content -->
 
@@ -62,7 +69,7 @@
                     <tbody class="table-border-bottom-0">
                     <?php foreach ($bon['fournisseurs'] as $fournisseur): if(count($fournisseur['commandes'])>0){ ?>
                       <tr>
-                        <td colspan="7" style="background-color:#696cff;color:black;">
+                        <td colspan="7" style="color:black;">
                           <?= $fournisseur['nomfournisseur'] ?>
                         </td>
                       </tr>
@@ -74,49 +81,51 @@
                             <span class="fw-medium"><?= $commande['nomcategorie'] ?></span>
                             </td>
                             <td><?= $commande['nomarticle'] ?></td>
-                            <td style="text-align:right;">
+                            <td class="right-number">
                             <?= $commande['quantite'] ?>
                             </td>
-                            <td style="text-align:right;">
+                            <td class="right-number">
                             <?= $commande['prixht'] ?>
                             </td>
-                            <td style="text-align:right;">
+                            <td class="right-number">
                             <?= $commande['tva'] ?>
                             </td>
-                            <td style="text-align:right;">
+                            <td class="right-number">
                             <?= $commande['ttc'] ?>
                             </td>
-                            <td style="text-align:right;">
+                            <td class="right-number">
                             <?= $commande['montant'] ?>
                             </td>
                         </tr>
+
                     <?php    } ?>
-
-
-                        <?php } endforeach; ?>
-                        <tr style="font-weight:bold;">
+                    <tr style="font-weight:bold;">
                           <td colspan="3">
                             <span >TOTAL</span>
                           </td>
-                          <td style="text-align:right;">
+                          <td class="right-number">
                             
                           </td>
-                          <td style="text-align:right;">
+                          <td class="right-number">
                           <?= $fournisseur['totaltva'] ?>
                           </td>
-                          <td style="text-align:right;">
+                          <td class="right-number">
                           
                           </td>
-                          <td style="text-align:right;">
+                          <td class="right-number">
                           <?= $fournisseur['montant'] ?>
                           </td>
                         </tr>
+                    <?php } endforeach; ?>
+                        
+
+
                         <tr style="font-weight:bolder;font-size:17px;">
                           <td colspan='3'>TOTAL DES BONS DE COMMANDE</td>
-                          <td style="text-align:right;"> </td>
-                          <td style="text-align:right;"> <?= $bon['totaltva'] ?></td>
-                          <td style="text-align:right;"></td>
-                          <td style="text-align:right;"> <?= $bon['montant'] ?></td>
+                          <td class="right-number"> </td>
+                          <td class="right-number"> <?= $bon['totaltva'] ?></td>
+                          <td class="right-number"></td>
+                          <td class="right-number"> <?= $bon['montant'] ?></td>
                       </tr>
                     </tbody>
                   </table>
@@ -139,3 +148,19 @@
               </div>
             </div>
             <!-- / Content -->
+            <script>
+    // Sélectionnez tous les éléments avec la classe .right-number
+    var elements = document.querySelectorAll('.right-number');
+
+    // Parcourez chaque élément et mettez à jour son contenu
+    elements.forEach(function(element) {
+        // Récupérez le contenu et le convertir en nombre
+        var number = parseFloat(element.textContent);
+
+        // Vérifiez si le contenu est un nombre
+        if (!isNaN(number)) {
+            // Mettez à jour le contenu avec le nombre formaté
+            element.textContent = number.toLocaleString('fr-FR'); // Utilisez le format français pour les séparateurs de milliers
+        }
+    });
+</script>
