@@ -175,7 +175,7 @@ create or replace  view v_demande_proforma_fournisseur_article as
 -- raha efa natao saisie le proforma
 create or replace view v_detailsdemandeproforma_article as 
     select *  
-    from detailsproforma as d 
+    from detailsdemandeproforma as d 
         natural join article as  a 
     ;
 
