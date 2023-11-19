@@ -13,6 +13,11 @@ class Generic_model extends CI_Model {
         echo $this->db->last_query().'</br>';
     }
 
+    public function getLast_Id(){
+        $last_insert_id = $this->db->insert_id();
+        return $last_insert_id;
+    }
+
 
     public function getLast($table , $id_name , $result_type = 'array' ) {
         $this->db->from($table);
@@ -33,15 +38,21 @@ class Generic_model extends CI_Model {
         return null;
     }
 
-    public function get_all($table, $order_by = null, $order_type = 'asc', $result_type = 'array') {
+    public function get_all($table, $order_by = null, $order_type = 'asc', $result_type = 'array', $where = null) {
         // Vérifiez si un ordre est spécifié
         if ($order_by !== null) {
             $this->db->order_by($order_by, $order_type);
         }
     
+        // Ajoutez la clause WHERE si elle est spécifiée
+        if ($where !== null) {
+            $this->db->where($where);
+        }
+    
         // Récupérer tous les enregistrements de la table spécifiée
         return $this->db->get($table)->result($result_type);
     }
+    
     
     public function get_by_id($table, $id, $result_type = 'array') {
         $this->db->from($table);

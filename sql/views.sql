@@ -140,3 +140,25 @@ create or replace view v_besoin_valide_personnel_poste_all as
         on po.idposte = p.idposte
 ;
 
+create or replace  view v_demande_proforma_fournisseur as 
+    select iddemande , idfournisseur
+    from fournisseurdemandeproforma  
+    group by iddemande , idfournisseur;
+
+
+create or replace  view v_demande_proforma_fournisseur_nom as 
+    select *
+    from v_demande_proforma_fournisseur
+        natural join fournisseur
+        natural join demandeProforma;
+
+create or replace  view v_demande_proforma_fournisseur_groub_article as   
+    select f.iddemande , f.idfournisseur , f.idarticle , sum(quantite) as quantite
+    from fournisseurdemandeproforma as f 
+        natural join detailsdemandeproforma  as d 
+    group by f.iddemande , f.idfournisseur , f.idarticle ;
+
+create or replace  view v_demande_proforma_fournisseur_article as   
+    select *  
+    from v_demande_proforma_fournisseur_groub_article as f
+        natural join article;
