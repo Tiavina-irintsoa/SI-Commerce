@@ -58,6 +58,7 @@
                     for ($k=0; $k < $countfournisseurs ; $k++) { 
                         if($prixfournisseur[$j]['idfournisseur'] == $fournisseurs[$k]['idfournisseur']){
                             $fournisseurs[$k]['commandes'][] = array(
+                                'idarticle' => $articles[$i]['idarticle'],
                                 'nomcategorie' => $articles[$i]['libellecategorie'],
                                 'nomarticle' => $articles[$i]['nomarticle'],
                                 'quantite' => $quantite_a_prendre,
@@ -86,6 +87,7 @@
                 'fournisseurs'=>$fournisseurs,
                 'montant'=>$grandtotal,
                 'totaltva'=>$totaltva,
+                'iddemande'=>$iddemande
             );
 
         }
