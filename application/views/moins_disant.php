@@ -48,10 +48,7 @@
                               <label class="form-check-label" for="defaultRadio2"><?= $mode['nommode'] ?></label>
                             </div>
                           <?php  } ?>
-                          <div class="form-check">
-                            <input name="mode" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
-                            <label class="form-check-label" for="defaultRadio2">Virement</label>
-                          </div>
+                          
                           </div>
                         </div>
                         

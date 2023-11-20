@@ -10,22 +10,17 @@
         }
 
         public function submit(){
-            var_dump( $_SESSION['bon'] );
-            echo '</br>';
-            echo '</br>';
-            echo '</br>';
-            var_dump( $_POST );
-
             $bon = array( 
                 "iddemande" => $this->input->post("iddemande"),
                 "livraisonpartielle" => $this->input->post("livraison"),
                 "idmodepaiement" => $this->input->post("mode"),
                 "datecreation" =>  date('Y-m-d H:i:s')
             );
-
-            $this->gm->insert( "boncommande" , $bon );
-            $last_boncommande = $this->get_by_id_list(  )
-            $this->load->view( "test" );
+            $fournisseurs = $_SESSION['bon']["fournisseurs"];
+            $status = $this->pm->insertBoncCommande( $bon , $fournisseurs );
+            if( $status == TRUE ){
+                redirect("proforma/delai");
+            }
         }
 
         public function generate(){

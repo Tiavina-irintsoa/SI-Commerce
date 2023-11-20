@@ -9,6 +9,41 @@
             $this->load->Model('PdfModel');
             $this->load->Model('EmailModel');
         }
+
+        public function insertBoncCommande( $bon , $fournisseurs ){
+            $this->db->trans_start();
+
+            $this->gm->insert( "boncommande" , $bon );
+            $last_boncommande = $this->gm->getLast( "boncommande" , "idboncommande"  );
+            $idboncommande = $last_boncommande["idboncommande"];
+
+            $this->insertDetailsBonCommande( $fournisseurs , $idboncommande );
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                return false;
+            } else {
+                $this->db->trans_commit();
+                return true;
+            }
+        }
+
+        public function  insertDetailsBonCommande($fournisseurs , $idboncommande ){
+            foreach( $fournisseurs as $f ){
+                foreach( $f['commandes'] as $c  ){
+                    $detailboncommande =  array(
+                        "idboncommande" => $idboncommande,
+                        "idfournisseur" => $f["idfournisseur"],
+                        "idarticle" => $c["idarticle"],
+                        "quantite" => $c["quantite"],
+                        "prixunitaire" => $c["prixht"]
+                    );
+                    $this->gm->insert( "detailsboncommande" , $detailboncommande );
+                }
+            }
+        }
+
        
         
         public function getMoinsDisantParArticles($iddemande){
