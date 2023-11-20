@@ -210,7 +210,7 @@ INSERT INTO chef_service (idService, idposte) VALUES
     -- Chef du service Ressources humaines
     (6, 16),
     -- Chef du service Commercial
-    (7, 18);
+    (7, 19);
 
 insert into achat values(1);
 insert into commercial values(7);
