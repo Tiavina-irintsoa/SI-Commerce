@@ -1,7 +1,7 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
-    require_once('UserSession.php');
-    class Proforma extends USerSession {
+    require_once('ServiceAchatController.php');
+    class Proforma extends ServiceAchatController {
         public function __construct(){
             parent::__construct();
             $this->nav_name = "proforma";
@@ -22,6 +22,8 @@
         public function doGenerate(){
             $iddemande = $this->input->get('iddemande');
             $data=array();
+            $this->load->Model('ModePaiementModel');
+            $data['modes']=$this->ModePaiementModel->get_all();
             $data['bon'] = $this->pm->getMoinsDisantParArticles($iddemande);
             $this->session->set_userdata('bon',$data['bon']);
             $data['title'] = 'Generer un bon de commande';
