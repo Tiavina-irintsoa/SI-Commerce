@@ -24,9 +24,9 @@
             </div>
 
             <?php 
-                $pus = 0; $tvas = 0; $totals = 0;
+                $pus = 0; $tvas = 0; $totals = 0; $ttcs = 0;
                 foreach ($listes as $liste): 
-                $pu = 0; $tva = 0; $total = 0;
+                $pu = 0; $tva = 0; $total = 0; $ttc = 0;
             ?>
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class="card">
@@ -40,13 +40,15 @@
                         <th>Quantite</th>
                         <th>Prix unitaire</th>
                         <th>TVA</th>
+                        <th>TTC</th>
                         <th>Montant</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                     <?php foreach ($liste as $b): 
                                 $pu += $b['prixunitaire'];
-                                $tva += $b['tva']; 
+                                $tva += $b['tva'] * $b['prixunitaire']; 
+                                $ttc += $b['prixunitaire'] + $b['tva'] * $b['prixunitaire']; 
                                 $total += ($b['prixunitaire'] + $b['prixunitaire'] * $b['tva']) * $b['quantite'];
                     ?>
                         <tr>
@@ -63,14 +65,17 @@
                                 <span class="fw-medium"> <?= number_format($b['prixunitaire'], 0, ',', ' ') ?> </span>
                             </td>
                             <td>
-                                <span class="fw-medium"> <?= number_format($b['tva'], 0, ',', ' ') ?> </span>
+                                <span class="fw-medium"> <?= number_format($b['tva']*$b['prixunitaire'], 0, ',', ' ') ?> </span>
+                            </td>
+                            <td>
+                                <span class="fw-medium"> <?= number_format($b['prixunitaire'] + $b['tva'] * $b['prixunitaire'], 0, ',', ' ') ?> </span>
                             </td>
                             <td>
                                 <span class="fw-medium"> <?= number_format(($b['prixunitaire'] + $b['prixunitaire'] * $b['tva']) * $b['quantite'], 0, ',', ' ') ?> </span>
                             </td>
                         </tr>
                         <?php endforeach; 
-                                $pus += $pu; $tvas += $tva; $totals += $total;
+                                $pus += $pu; $tvas += $tva; $totals += $total; $ttcs += $ttc;
                         ?>
                         <tr>
                             <td></td>
@@ -83,6 +88,9 @@
                             </td>
                             <td>
                                 <span class="fw-medium"> <?= number_format($tva, 0, ',', ' ') ?> </span>
+                            </td>
+                            <td>
+                                <span class="fw-medium"> <?= number_format($ttc, 0, ',', ' ') ?> </span>
                             </td>
                             <td>
                                 <span class="fw-medium"> <?= number_format($total, 0, ',', ' ') ?> </span>
@@ -111,6 +119,9 @@
                             </td>
                             <td>
                                 <span class="fw-medium"> <?= number_format($tvas, 0, ',', ' ') ?> </span>
+                            </td>
+                            <td>
+                                <span class="fw-medium"> <?= number_format($ttcs, 0, ',', ' ') ?> </span>
                             </td>
                             <td>
                                 <span class="fw-medium"> <?= number_format($totals, 0, ',', ' ') ?> </span>

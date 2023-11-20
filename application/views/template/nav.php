@@ -88,6 +88,17 @@
                 </a>
               
             </li>
+
+            <?php if( isset($_SESSION["user"]['achat']) == true ||  isset($_SESSION["user"]['finance']) || isset($_SESSION["user"]['commercial'])){ ?>
+            <li class="menu-item open">
+                <a
+                href="<?= site_url('BonDeCommande/all_bdc') ?>"
+                class="menu-link">
+                <i class="bx bxs-file me-1"></i>
+                <div data-i18n="Email">Bons de commandes</div>
+                </a>              
+            </li>
+            <?php } ?>
             
             <li class="menu-item open <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
                 <a
@@ -128,7 +139,12 @@
                     </a>
                   </li>
                   <?php } ?>
-                  <?php if( $_SESSION["user"]['chef'] == TRUE &&  isset($_SESSION["user"]['finance'])){ ?>
+                 
+                  
+                
+                
+              </ul>
+              <?php if( $_SESSION["user"]['chef'] == true &&  isset($_SESSION["user"]['finance'])){ ?>
                   <li class="menu-item">
                     <a
                       href="<?= site_url('BonDeCommande/all_bdc_finance') ?>"
@@ -148,10 +164,6 @@
                     </a>
                   </li>
                   <?php } ?>
-                  
-                
-                
-              </ul>
               <li class="menu-item open">
                 <a
                 href="<?= site_url('Auth/disconnect') ?>"
@@ -161,6 +173,7 @@
                 </a>
               
             </li>
+
             </li>
 
             <li class="menu-header small text-uppercase">
