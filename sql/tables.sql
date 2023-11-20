@@ -100,8 +100,9 @@ create table modePaiement (
     idModePaiement serial primary key,
     nomMode varchar
 );
+create sequence s_boncommande;
 create table bonCommande(
-    idBonCommande serial primary key, 
+    idBonCommande varchar primary key default 'BC-'||extract(year from NOW())||extract(month from now())||'-'||nextval('s_boncommande'), 
     iddemande integer references demandeProforma(iddemande),
     livraisonPartielle integer default 0, --1=oui, 0=non,
     idModePaiement integer references modePaiement(idModePaiement),
@@ -110,7 +111,7 @@ create table bonCommande(
     datevalidationAdjoint timestamp
 );
 create table detailsBonCommande(
-    idBonCommande integer references bonCommande(idBonCommande),
+    idBonCommande varchar references bonCommande(idBonCommande),
     idFournisseur integer references fournisseur(idFournisseur),
     idArticle integer references article(idArticle),
     quantite numeric, 
