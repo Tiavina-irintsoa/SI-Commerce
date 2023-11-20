@@ -128,6 +128,26 @@
                     </a>
                   </li>
                   <?php } ?>
+                  <?php if( $_SESSION["user"]['chef'] == TRUE &&  isset($_SESSION["user"]['finance'])){ ?>
+                  <li class="menu-item">
+                    <a
+                      href="<?= site_url('BonDeCommande/all_bdc_finance') ?>"
+                      class="menu-link"
+                      >
+                      <div data-i18n="Pricing"> Validation des bons de commandes </div>
+                    </a>
+                  </li>
+                  <?php } ?>
+                  <?php if( $_SESSION["user"]['chef'] == TRUE &&  isset($_SESSION["user"]['commercial'])){ ?>
+                  <li class="menu-item">
+                    <a
+                      href="<?= site_url('BonDeCommande/all_bdc_adjoint') ?>"
+                      class="menu-link"
+                      >
+                      <div data-i18n="Pricing"> Validation des bons de commandes </div>
+                    </a>
+                  </li>
+                  <?php } ?>
                   
                 
                 
