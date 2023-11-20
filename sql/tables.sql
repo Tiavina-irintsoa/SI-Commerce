@@ -126,3 +126,24 @@ create table fournisseurDemandeProforma (
     idArticle integer references article(idArticle),
     idFournisseur integer references fournisseur(idFournisseur)
 );
+
+-- ralph
+
+CREATE TABLE mois (
+    id_month SERIAL PRIMARY KEY,
+    nom_month VARCHAR(20) NOT NULL
+);
+
+INSERT INTO mois (nom_month) VALUES
+    ('Janvier'),
+    ('Février'),
+    ('Mars'),
+    ('Avril'),
+    ('Mai'),
+    ('Juin'),
+    ('Juillet'),
+    ('Août'),
+    ('Septembre'),
+    ('Octobre'),
+    ('Novembre'),
+    ('Décembre');
