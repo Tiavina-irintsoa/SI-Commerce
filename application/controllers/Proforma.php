@@ -9,6 +9,25 @@
             $this->load->Model('ProformaModel' , 'pm');
         }
 
+        public function generate(){
+            $iddemande = $this->input->get('iddemande');
+            if($this->pm->verifier($iddemande)){
+                redirect('Proforma/doGenerate?iddemande='.$iddemande);
+            }
+            else{
+                $this->delai("Des fournisseurs n'ont pas encore envoye de proforma");
+            }
+
+        }
+        public function doGenerate(){
+            $iddemande = $this->input->get('iddemande');
+            $data=array();
+            $data['bon'] = $this->pm->getMoinsDisantParArticles($iddemande);
+            $this->session->set_userdata('bon',$data['bon']);
+            $data['title'] = 'Generer un bon de commande';
+            $data['page']='moins_disant';
+            $this->load->view('template',$data);
+        }
         public function saisie_submit(){
             $pu = $this->input->post("pu");
             $dispo = $this->input->post("dispo");
@@ -54,13 +73,16 @@
             );
             $data['demandes'] =  $this->gm->get_all("v_demande_proforma_fournisseur_nom"  , "idfournisseur" ,  'asc', 'array', $where ); 
             $data['proforma'] =  $this->gm->get_all("proforma"  , "iddemande" ,'asc', 'array', $where ); 
-            $data['details_proforma'] =  $this->gm->get_all("v_detailsdemandeproforma_article"  , "iddemande" ,'asc', 'array', $where ); 
+            $data['details_proforma'] =  $this->gm->get_all("v_detailsproforma_article"  , "iddemande" ,'asc', 'array', $where ); 
             $data['articles'] =  $this->gm->get_all("v_demande_proforma_fournisseur_article"  , "idfournisseur , idarticle" ,  'asc', 'array', $where ); 
             $data["titre_liste"] = "Listes des demandes de proforma envoyés par fournisseur";
             $this->load->view("demande_par_fournisseur" , $data);
         }
     
-        public function delai(){
+        public function delai($error = null){
+            if($error!==null){
+                $data['error'] = $error;
+            }
             $data["nav_name"] = $this->nav_name;
             $data["demandes"] = $this->gm->get_all("demandeproforma"  , "delailivraison" ); 
             $data["titre_liste"] = "Listes des demandes par délai de livraison";

@@ -52,7 +52,7 @@ class PdfModel extends CI_Model{
 
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Ln();
-        $pdf->Cell(40,20,'Bon de commande n:',);
+        $pdf->Cell(40,20,'Bon de commande n:');
         $pdf->Ln();
         $pdf->Cell(35,15,'Categorie',1, 0, 'C');
         $pdf->Cell(35,15,'Designation',1, 0, 'C');
@@ -91,10 +91,13 @@ class PdfModel extends CI_Model{
 
     public function demande_proforma($societe, $fournisseur, $delai, $data){
         require_once(APPPATH . 'libraries/fpdf/fpdf.php');
-
+        ob_start();
         $pdf = new FPDF();
         $this->content_proforma($pdf, $societe, $fournisseur, $delai, $data);
-        $pdf->Output('proforma.pdf', 'I');
+        $path = APPPATH.'../assets/docs/demandeproforma/'.$fournisseur.'-'.$delai.'.pdf';
+        $pdf->Output('F',$path);
+        ob_end_flush();   
+        return $path;
     }
 
     public function content_proforma($pdf, $societe, $fournisseur, $delai, $data){

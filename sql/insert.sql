@@ -6,14 +6,14 @@ INSERT INTO categorieArticle (libelleCategorie) VALUES
     ('Mobilier de bureau');
 
 -- Insertion de données dans la table des articles
-INSERT INTO article (nomArticle, idCategorieArticle, dateCreation) VALUES
-    ('Ordinateur portable', 1, NOW()),
-    ('Écran LCD 24 pouces', 1, NOW()),
-    ('Stylos', 2, NOW()),
-    ('Cahiers', 2, NOW()),
-    ('Masques de protection', 3, NOW()),
-    ('Perceuse sans fil', 4, NOW()),
-    ('Chaise de bureau ergonomique', 5, NOW());
+INSERT INTO article (nomArticle, idCategorieArticle, dateCreation,tva) VALUES
+    ('Ordinateur portable', 1, NOW(),20),
+    ('Écran LCD 24 pouces', 1, NOW(),20),
+    ('Stylos', 2, NOW(),20),
+    ('Cahiers', 2, NOW(),20),
+    ('Masques de protection', 3, NOW(),20),
+    ('Perceuse sans fil', 4, NOW(),20),
+    ('Chaise de bureau ergonomique', 5, NOW(),20);
 
 -- Insertion de données dans la table des fournisseurs
 INSERT INTO fournisseur (nomFournisseur, emailFournisseur, dateCreation) VALUES
@@ -215,3 +215,4 @@ INSERT INTO chef_service (idService, idposte) VALUES
 insert into achat values(1);
 insert into commercial values(7);
 insert into finance values(2);
+insert into modePaiement (nomMode) values('Cheque'),('Virement');

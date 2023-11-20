@@ -3,6 +3,7 @@
                 display:grid;
                 grid-template-columns:3fr 2fr;
                 width:100%;
+                margin-bottom:6vh;
             }
             .article{
                 display:flex;
@@ -55,12 +56,12 @@
                                     <?php
                                         if(count($article['fournisseurs']) == 0 ){ ?>
                                             <div  style="width:85%" class="alert alert-danger">
-                                                Cet article n'a pas de fournisseurs. <a style="color:red;text-decoration:underline;" href="<?= site_url('fournisseur'); ?>">Voulez-vous ajouter ? </a>
+                                                Cet article n'a pas de fournisseurs. <a style="color:red;text-decoration:underline;" href="<?= site_url('fournisseur'); ?>" target="_blank">Voulez-vous ajouter ? </a>
                                             </div>
                                     <?php    }
                                     else if(count($article['fournisseurs']) < 3 ){ ?>
                                         <div  style="width:85%" class="alert alert-danger alert-dismissible">
-                                            Cet article a moins de 3 fournisseurs. <a style="color:red;text-decoration:underline;" href="<?= site_url('fournisseur'); ?>">Voulez-vous ajouter ? </a>
+                                            Cet article a moins de 3 fournisseurs. <a style="color:red;text-decoration:underline;" target="_blank" href="<?= site_url('fournisseur'); ?>">Voulez-vous ajouter ? </a>
                                         </div>
                                 <?php    }
                                     ?>

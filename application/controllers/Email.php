@@ -4,6 +4,7 @@ require_once(APPPATH.'libraries/PHPMailer/src/SMTP.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Email extends CI_Controller{
     public function index(){
@@ -22,7 +23,7 @@ class Email extends CI_Controller{
         $mail->Body = 'Ceci est le contenu du message en texte clair';
         $mail->addAttachment('/var/www/html/SI-Commerce/assets/docs/BE3.pdf');
         if (!$mail->send()) {
-            echo 'Erreur de Mailer : ' . $mail->ErrorInfo;
+            redirect();
         } else {
             echo 'Le message a été envoyé.';
         }

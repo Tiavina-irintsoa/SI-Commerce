@@ -97,7 +97,7 @@
                   </div>
                 </div>
 
-                <div class="col-lg-4 mb-4 order-0 hidden" id="popup_besoin2"  style="position:absolute; opacity: 0; right:58px; top:100px;  transition: opacity 0.5s, z-index 0.5s; z-index:-100; width:70vw; "  >
+                <div class="col-lg-4 mb-4 order-0 hidden" id="popup_besoin2"  style="position:absolute; opacity: 0; right:58px; top:100px;  transition: opacity 0.5s, z-index 0.5s; z-index:-100 ; width:70vw; "  >
                   <div class="card">
                     <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
@@ -106,8 +106,8 @@
                     </div>
                     </div>
                       <div class="col-sm-12">
-                        <div id="liste_details" class="card-body" style="display:flex; flex-wrap:nowrap; " >
-                            <div   id="article_details" >
+                        <div id="liste_details" class="card-body" style="display:flex; flex-wrap:nowrap; justify-content:space-between;" >
+                            <div   id="article_details"  >
                                 <p class="mb-4" style="font-weight: 600;"  >
                                     Article
                                 </p>
@@ -116,18 +116,9 @@
                                     your profile. 
                                 </p>
                             </div>
-                            <div  id="qte_details" >
+                            <div  id="qte_details"  >
                                 <p class="mb-4" style="font-weight: 600;" >
                                     Quantité
-                                </p>
-                                <p class="mb-4">
-                                    You have done <span class="fw-medium">72%</span> more sales today. Check your new badge in
-                                    your profile.
-                                </p>
-                            </div>
-                            <div   id="dispo_details" >
-                                <p class="mb-4" style="font-weight: 600;" >
-                                    Dispo
                                 </p>
                                 <p class="mb-4">
                                     You have done <span class="fw-medium">72%</span> more sales today. Check your new badge in
@@ -143,7 +134,7 @@
                                     your profile.
                                 </p>
                             </div>
-                            <div   id="ht_details" >
+                            <div   id="ht_details" style="margin-left:20px;">
                                 <p class="mb-4" style="font-weight: 600;" >
                                     HT
                                 </p>
@@ -152,7 +143,7 @@
                                     your profile.
                                 </p>
                             </div>
-                            <div  id="tva_details" >
+                            <div  id="tva_details" style="margin-left:20px;">
                                 <p class="mb-4" style="font-weight: 600;" >
                                     TVA
                                 </p>
@@ -161,7 +152,7 @@
                                     your profile.
                                 </p>
                             </div>
-                            <div  id="ttc_details">
+                            <div  id="ttc_details" >
                                 <p class="mb-4" style="font-weight: 600;" >
                                     TTC
                                 </p>
@@ -173,7 +164,7 @@
                         </div>
                       </div>
                     </div>
-                    <div style="position: absolute; top: 10px; right: 10px; cursor: pointer;" onclick="hidePopupProformaq()">
+                    <div style="position: absolute; top: 10px; right: 10px; cursor: pointer;" onclick="hidePopupProforma()">
                         <i class="bx bx-x-circle" style="font-size: 24px;"></i>
                     </div>
                   </div>
@@ -189,7 +180,13 @@
                         popupDiv.style.opacity = 1;
                         popupDiv.style.zIndex = 1;
                     }
-
+                    function format(value) {
+                        const formatter = new Intl.NumberFormat('fr-FR', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                        });
+                        return formatter.format(value);
+                    }
                     function hidePopup() {
                         var popupDiv = document.getElementById('popup_besoin');
                         popupDiv.style.opacity = 0;
@@ -208,7 +205,7 @@
                         popupDiv.style.zIndex = -1;
                     }
 
-                    function updateDetailPopupProforma(list, idfournisseur) {
+                    function updateDetailPopupProforma(list) {
                         // Obtenez la référence de la div
                         var popupDiv = document.getElementById('popup_besoin2');
 
@@ -219,24 +216,17 @@
                         var quantitesContainer = popupDiv.querySelector('#qte_details p:nth-child(2)');
 
                         // Obtenez la référence du conteneur pour les nouvelles colonnes
-                        var dispo = popupDiv.querySelector('#dispo_details p:nth-child(2)');
 
                         var pu = popupDiv.querySelector('#pu_details p:nth-child(2)');
                         var ht = popupDiv.querySelector('#ht_details p:nth-child(2)');
                         var tva = popupDiv.querySelector('#tva_details p:nth-child(2)');
                         var ttc = popupDiv.querySelector('#ttc_details p:nth-child(2)');
 
-                        console.log(dispo);
-                        console.log(pu);
-                        console.log(ht);
-                        console.log(tva);
-                        console.log(ttc);
 
                         // Effacez le contenu actuel
                         articlesContainer.innerHTML = '';
                         quantitesContainer.innerHTML = '';
 
-                        dispo.innerHTML='';
 
                         pu.innerHTML='';
 
@@ -245,23 +235,23 @@
                         tva.innerHTML='';
 
                         ttc.innerHTML='';
-
+                        console.log( "eto" );
+                        console.log( list );
                         // Bouclez sur la liste filtrée pour ajouter chaque élément
                         list.forEach(function(item, index) {
-                            console.log( 'eto' );
                             // Ajoutez le nom de l'article
+                            let  ht_value =  ( parseFloat(item.disponible) * parseFloat(item.prixunitaire) );
+                            let ttc_value = ht_value * (  1 + parseFloat(item.tva));
                             articlesContainer.innerHTML += '<br><span class="mb-4 fw-medium">' + item.nomarticle + '</span><hr>';
                             // Ajoutez la quantité
-                            quantitesContainer.innerHTML += '<br>' + item.quantite + '</span><hr>';
-                            pu.innserHTML += '<br>' + item.prixunitaire + '</span><hr>';
+                            quantitesContainer.innerHTML += '<br>' + item.disponible + '</span><hr>';
+                            pu.innerHTML += '<br>' + format(item.prixunitaire) + '</span><hr>';
 
-                            dispo.innserHTML += '<br>' + item.disponible + '</span><hr>';
+                            tva.innerHTML += '<br>' + format(item.tva) + ' Ar </span><hr>';
 
-                            tva.innserHTML += '<br>' + item.tva + '</span><hr>';
+                            ht.innerHTML += '<br>' + format(ht_value) + '</span><hr>';
 
-                            ht.innserHTML += '<br>' + ( item.disponible * item.prixunitaire )  + '</span><hr>';
-
-                            ttc.innserHTML += '<br>' + ( item.disponible * item.prixunitaire ) * ( 1 + item.tva )  + '</span><hr>';
+                            ttc.innerHTML += '<br>' + format(ttc_value) + ' Ar</span><hr>';
 
 
                         });
@@ -315,8 +305,8 @@
                         let filteredList = details_proforma.filter(function(item) {
                             return item.idproforma === idproforma;
                         });
-
-                        updateDetailPopupProforma( filteredList  );
+                        console.log( filteredList );
+                        updateDetailPopupProforma( filteredList ,   );
                         showPopupProforma();
                     }
 

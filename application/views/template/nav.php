@@ -74,8 +74,8 @@
                 <a
                 href="<?= site_url('DemandeProforma/listeParNature') ?>"
                 class="menu-link">
-                <i class="menu-icon tf-icons bx bx-store"></i>
-                <div data-i18n="Email">Demader des proformas</div>
+                <i class="menu-icon tf-icons bx bx-user-voice"></i>
+                <div data-i18n="Email">Demander des proformas</div>
                 </a>
               
             </li>
@@ -136,7 +136,7 @@
                 <a
                 href="<?= site_url('Auth/disconnect') ?>"
                 class="menu-link">
-                <i class="menu-icon tf-icons bx bx-pencil"></i>
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
                 <div data-i18n="Email">Se déconnecter</div>
                 </a>
               

@@ -14,6 +14,12 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
             <div class="card">
+              <?php
+              if(isset($error)){?>
+                <div class="alert alert-danger">
+                  <?= $error ?>
+                </div>
+              <?php } ?>
                 <h5 class="card-header"> <?= $titre_liste ?></h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
@@ -38,7 +44,7 @@
                                 <a class="dropdown-item" href="<?= base_url("proforma/demande_fournisseur?iddemande=".$b['iddemande']) ?>"
                                     ><i class="bx bx-edit-alt me-1"></i> Voir Détails </a
                                 >
-                                <a class="dropdown-item" href="<?= base_url("fournisseur/remove?") ?>"
+                                <a class="dropdown-item" href="<?= site_url('Proforma/Generate?iddemande='.$b['iddemande']) ?>"
                                     ><i class="bx bxs-file me-1"></i> Génerer bon de commande</a
                                 >
                                 </div>
