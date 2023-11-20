@@ -9,6 +9,25 @@
             $this->load->Model('ProformaModel' , 'pm');
         }
 
+        public function submit(){
+            var_dump( $_SESSION['bon'] );
+            echo '</br>';
+            echo '</br>';
+            echo '</br>';
+            var_dump( $_POST );
+
+            $bon = array( 
+                "iddemande" => $this->input->post("iddemande"),
+                "livraisonpartielle" => $this->input->post("livraison"),
+                "idmodepaiement" => $this->input->post("mode"),
+                "datecreation" =>  date('Y-m-d H:i:s')
+            );
+
+            $this->gm->insert( "boncommande" , $bon );
+            $last_boncommande = $this->get_by_id_list(  )
+            $this->load->view( "test" );
+        }
+
         public function generate(){
             $iddemande = $this->input->get('iddemande');
             if($this->pm->verifier($iddemande)){
@@ -26,6 +45,7 @@
             $this->session->set_userdata('bon',$data['bon']);
             $data['title'] = 'Generer un bon de commande';
             $data['page']='moins_disant';
+            $data['iddemande'] = $iddemande;
             $this->load->view('template',$data);
         }
         public function saisie_submit(){
