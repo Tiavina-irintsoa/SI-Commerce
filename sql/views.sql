@@ -90,7 +90,7 @@ create or replace view v_article_fournisseur as
     ; 
 
 create or replace view v_besoin_semaine_personnel_poste as 
-    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice , 
+    select idbesoin , bs.idpersonnel , datebesoin , datevalidation , daterefus , demandeproforma , nompersonnel  ,     login      ,  motdepasse  , p.idposte  ,    nomposte   , idservice 
     from v_besoin_semaine as bs 
         join personnel as p 
         on p.matricule = bs.idPersonnel
@@ -204,7 +204,7 @@ cross join v_annee_besoin
 cross join ( 
     select idarticle 
     from article
-)
+) as article
 ;
 
 create or replace view v_besoin_details as  
