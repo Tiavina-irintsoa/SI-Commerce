@@ -90,7 +90,7 @@
             </li>
 
             <?php if( isset($_SESSION["user"]['achat']) == true ||  isset($_SESSION["user"]['finance']) || isset($_SESSION["user"]['commercial'])){ ?>
-            <li class="menu-item open">
+            <li class="menu-item ">
                 <a
                 href="<?= site_url('BonDeCommande/all_bdc') ?>"
                 class="menu-link">
@@ -164,7 +164,7 @@
                     </a>
                   </li>
                   <?php } ?>
-              <li class="menu-item open">
+              <li class="menu-item">
                 <a
                 href="<?= site_url('Auth/disconnect') ?>"
                 class="menu-link">
