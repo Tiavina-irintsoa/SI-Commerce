@@ -213,12 +213,12 @@ create or replace view v_besoin_details as
     natural join detailBesoin;
 
 create or replace view v_qte_par_mois as 
-select extract( 'year' from datevalidation ) as annee , 
-extract( 'month' from datevalidation ) as mois , 
+select extract( 'year' from datebesoin ) as annee , 
+extract( 'month' from datebesoin ) as mois , 
 idarticle , idpersonnel , sum( quantite ) as quantite
 from v_besoin_details 
-group by  extract( 'year' from datevalidation ) , 
-extract( 'month' from datevalidation ) , 
+group by  extract( 'year' from datebesoin ) , 
+extract( 'month' from datebesoin ) , 
 idarticle , idpersonnel;
 
 
