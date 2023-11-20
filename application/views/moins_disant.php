@@ -112,7 +112,7 @@
                           </td>
                         </tr>
                         <tr style="font-weight:bolder;font-size:17px;">
-                          <td colspan='2'>TOTAL DES BONS DE COMMANDE</td>
+                          <td colspan='3'>TOTAL DES BONS DE COMMANDE</td>
                           <td style="text-align:right;"> </td>
                           <td style="text-align:right;"> <?= $bon['totaltva'] ?></td>
                           <td style="text-align:right;"></td>

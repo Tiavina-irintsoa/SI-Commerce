@@ -62,12 +62,12 @@
                                 'nomarticle' => $articles[$i]['nomarticle'],
                                 'quantite' => $quantite_a_prendre,
                                 'prixht' => $prixfournisseur[$j]['prixunitaire'],
-                                'tva' => $articles[$i]['tva'],
+                                'tva' => $articles[$i]['tva']*$prixfournisseur[$j]['prixunitaire'],
                                 'ttc' => (1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire'],
                                 'montant'=>(1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire']*$quantite_a_prendre
                             );
                            
-                            $fournisseurs[$k]['totaltva'] += $articles[$i]['tva'];
+                            $fournisseurs[$k]['totaltva'] += $articles[$i]['tva']*$prixfournisseur[$j]['prixunitaire'];
                             $fournisseurs[$k]['montant'] += (1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire']*$quantite_a_prendre;
                                 
                             $grandtotal+=$fournisseurs[$k]['montant'];
