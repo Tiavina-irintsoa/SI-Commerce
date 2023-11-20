@@ -9,6 +9,20 @@
             $this->load->Model('ProformaModel' , 'pm');
         }
 
+        public function submit(){
+            $bon = array( 
+                "iddemande" => $this->input->post("iddemande"),
+                "livraisonpartielle" => $this->input->post("livraison"),
+                "idmodepaiement" => $this->input->post("mode"),
+                "datecreation" =>  date('Y-m-d H:i:s')
+            );
+            $fournisseurs = $_SESSION['bon']["fournisseurs"];
+            $status = $this->pm->insertBoncCommande( $bon , $fournisseurs );
+            if( $status == TRUE ){
+                redirect("proforma/delai");
+            }
+        }
+
         public function generate(){
             $iddemande = $this->input->get('iddemande');
             if($this->pm->verifier($iddemande)){
@@ -28,6 +42,7 @@
             $this->session->set_userdata('bon',$data['bon']);
             $data['title'] = 'Generer un bon de commande';
             $data['page']='moins_disant';
+            $data['iddemande'] = $iddemande;
             $this->load->view('template',$data);
         }
         public function saisie_submit(){

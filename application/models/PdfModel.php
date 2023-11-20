@@ -151,7 +151,7 @@ class PdfModel extends CI_Model{
         $pdf->Cell(50, 0,$delai);
 
         $pdf->Ln();
-        $pdf->Cell(10,20,'',);
+        // $pdf->Cell(10,20,'',);
         $pdf->Ln();
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(35,15,'',0, 0, 'C');

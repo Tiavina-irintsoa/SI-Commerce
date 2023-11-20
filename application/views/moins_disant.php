@@ -23,16 +23,17 @@
                   <div class="card mb-4">
                     
                     <div class="card-body">
-                      <form method="post" action ="<?= site_url('besoin/submit') ?>">
+                      <form method="post" action ="<?= site_url('proforma/submit') ?>">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Livraison Partielle  </label>
                           <div class='px-5'>
                           <div class="form-check">
-                            <input name="livraison" class="form-check-input" type="radio" value="1" id="defaultRadio2" checked="">
+                          <input name="livraison" class="form-check-input" type="radio" value="1" id="defaultRadio2" checked="">
                             <label class="form-check-label" for="defaultRadio2">Oui</label>
                           </div>
+                          <input type="hidden"  name="iddemande" value="<?=  $iddemande  ?>" />
                           <div class="form-check">
-                            <input name="livraison" class="form-check-input" type="radio" value="0" id="defaultRadio2" checked="">
+                            <input name="livraison" class="form-check-input" type="radio" value="0" id="defaultRadio2" >
                             <label class="form-check-label" for="defaultRadio2">Non</label>
                           </div>
                           </div>
@@ -40,7 +41,7 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Mode de paiement</label>
                           <div class='px-5'>
-                            <?php
+                          <?php
                             foreach ($modes as $mode) { ?>
                              <div class="form-check">
                               <input name="mode" class="form-check-input" type="radio" value="<?= $mode['idmodepaiement']?>" id="defaultRadio2" checked="">
