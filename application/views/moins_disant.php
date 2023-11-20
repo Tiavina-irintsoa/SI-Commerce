@@ -28,7 +28,7 @@
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Livraison Partielle  </label>
                           <div class='px-5'>
                           <div class="form-check">
-                            <input name="livraison" class="form-check-input" type="radio" value="1" id="defaultRadio2" checked="">
+                          <input name="livraison" class="form-check-input" type="radio" value="1" id="defaultRadio2" checked="">
                             <label class="form-check-label" for="defaultRadio2">Oui</label>
                           </div>
                           <input type="hidden"  name="iddemande" value="<?=  $iddemande  ?>" />
@@ -41,12 +41,15 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Mode de paiement</label>
                           <div class='px-5'>
+                          <?php
+                            foreach ($modes as $mode) { ?>
+                             <div class="form-check">
+                              <input name="mode" class="form-check-input" type="radio" value="<?= $mode['idmodepaiement']?>" id="defaultRadio2" checked="">
+                              <label class="form-check-label" for="defaultRadio2"><?= $mode['nommode'] ?></label>
+                            </div>
+                          <?php  } ?>
                           <div class="form-check">
-                            <input name="mode" class="form-check-input" type="radio" value="1" id="defaultRadio2" checked="">
-                            <label class="form-check-label" for="defaultRadio2">Cheque</label>
-                          </div>
-                          <div class="form-check">
-                            <input name="mode" class="form-check-input" type="radio" value="2" id="defaultRadio2" checked="">
+                            <input name="mode" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
                             <label class="form-check-label" for="defaultRadio2">Virement</label>
                           </div>
                           </div>
