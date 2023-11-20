@@ -31,7 +31,7 @@
             $data['societe'] = 'Miraculous';
             $data['date'] = $date = date('Y-m-d', strtotime($details[0]['datecreation']));
             $data['delai'] = $delai;
-            $data['numero'] = 'numero';
+            $data['numero'] = $id;
             $data['details'] = $details;
 
             $data['partielle'] = 'NON'; 
