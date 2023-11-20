@@ -61,7 +61,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "fournisseur" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "fournisseur" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/fournisseur') ?>"
                 class="menu-link">
@@ -70,7 +70,7 @@
                 </a>
               
             </li>
-            <li class="menu-item open">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "demandeproforma" ? "active" : "" ?> ">
                 <a
                 href="<?= site_url('DemandeProforma/listeParNature') ?>"
                 class="menu-link">
@@ -79,7 +79,7 @@
                 </a>
               
             </li>
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "proforma" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "proforma" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/proforma/delai') ?>"
                 class="menu-link">
@@ -89,7 +89,7 @@
               
             </li>
             
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/article') ?>"
                 class="menu-link">
