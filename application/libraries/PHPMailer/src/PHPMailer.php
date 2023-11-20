@@ -20,7 +20,7 @@
  */
 
 namespace PHPMailer\PHPMailer;
-
+use PHPMailer\PHPMailer\Exception;
 /**
  * PHPMailer - PHP email creation and transport class.
  *
