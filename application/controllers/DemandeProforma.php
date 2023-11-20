@@ -4,6 +4,7 @@
     class DemandeProforma extends ServiceAchatController{
         public function __construct(){
             parent::__construct();
+            $this->nav_name = "demandeproforma";
             $this->load->Model('BesoinModel');
             $this->load->Model('ProformaModel');
             $this->load->model('PdfModel' , 'pdf');
@@ -11,6 +12,7 @@
 
         public function listeParNature(){
             $data=array();
+            $data["nav_name"] = $this->nav_name;
             $data['besoins'] = $this->BesoinModel->get_par_nature();
             $data['title'] = 'Besoins par nature';
             $data['page'] = 'besoin_par_nature';
@@ -57,6 +59,7 @@
             $data['page'] = 'demandeproforma';
             $data['title'] = 'Faire une demande de proforma';
             $data['erreur']  =$erreur;
+            $data["nav_name"] = $this->nav_name;
             $data['articles']=$this->BesoinModel->get_fournisseur();
             $this->session->set_userdata('articles',$data['articles']);
             $this->load->view('template',$data);

@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
     class BonComModel extends CI_Model{
+        
+
         public function get_bdcFinance(){
             $this->db->select('*');
             $this->db->from('boncommande');
@@ -80,6 +82,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             } else {
             echo "Update failed";
             }
+        }
+
+        public function get_bdc(){
+            $this->db->select('boncommande.idboncommande, delailivraison, detailsboncommande.idfournisseur, nomfournisseur');
+            $this->db->from('boncommande');
+            $this->db->join('demandeproforma', 'boncommande.iddemande = demandeproforma.iddemande', 'natural');
+            $this->db->join('detailsboncommande', 'detailsboncommande.idboncommande = boncommande.idboncommande', 'natural');
+            $this->db->join('fournisseur', 'fournisseur.idfournisseur = detailsboncommande.idfournisseur', 'natural');
+            $this->db->where('datevalidationadjoint is not null');
+            $this->db->group_by(array('boncommande.idboncommande', 'delailivraison', 'detailsboncommande.idfournisseur', 'nomfournisseur'));
+            $this->db->order_by('demandeproforma.delailivraison', 'ASC');
+            $query = $this->db->get();
+            return $query->result_array();
         }
         
     }

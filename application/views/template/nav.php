@@ -61,7 +61,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "fournisseur" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "fournisseur" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/fournisseur') ?>"
                 class="menu-link">
@@ -70,7 +70,7 @@
                 </a>
               
             </li>
-            <li class="menu-item open">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "demandeproforma" ? "active" : "" ?> ">
                 <a
                 href="<?= site_url('DemandeProforma/listeParNature') ?>"
                 class="menu-link">
@@ -79,7 +79,7 @@
                 </a>
               
             </li>
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "proforma" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "proforma" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/proforma/delai') ?>"
                 class="menu-link">
@@ -88,8 +88,19 @@
                 </a>
               
             </li>
+
+            <?php if( isset($_SESSION["user"]['achat']) == true ||  isset($_SESSION["user"]['finance']) || isset($_SESSION["user"]['commercial'])){ ?>
+            <li class="menu-item open">
+                <a
+                href="<?= site_url('BonDeCommande/all_bdc') ?>"
+                class="menu-link">
+                <i class="bx bxs-file me-1"></i>
+                <div data-i18n="Email">Bons de commandes</div>
+                </a>              
+            </li>
+            <?php } ?>
             
-            <li class="menu-item open <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
+            <li class="menu-item  <?= isset($nav_name) && $nav_name == "article" ? "active" : "" ?> ">
                 <a
                 href="<?= base_url('/article') ?>"
                 class="menu-link">
@@ -128,7 +139,12 @@
                     </a>
                   </li>
                   <?php } ?>
-                  <?php if( $_SESSION["user"]['chef'] == TRUE &&  isset($_SESSION["user"]['finance'])){ ?>
+                 
+                  
+                
+                
+              </ul>
+              <?php if( $_SESSION["user"]['chef'] == true &&  isset($_SESSION["user"]['finance'])){ ?>
                   <li class="menu-item">
                     <a
                       href="<?= site_url('BonDeCommande/all_bdc_finance') ?>"
@@ -148,10 +164,6 @@
                     </a>
                   </li>
                   <?php } ?>
-                  
-                
-                
-              </ul>
               <li class="menu-item open">
                 <a
                 href="<?= site_url('Auth/disconnect') ?>"
@@ -161,6 +173,7 @@
                 </a>
               
             </li>
+
             </li>
 
             <li class="menu-header small text-uppercase">
