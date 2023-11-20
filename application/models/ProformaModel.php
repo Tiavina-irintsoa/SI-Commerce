@@ -9,6 +9,86 @@
             $this->load->Model('PdfModel');
             $this->load->Model('EmailModel');
         }
+       
+        
+        public function getMoinsDisantParArticles($iddemande){
+            $grandtotal = 0;
+            $totaltva = 0;
+            $this->db->select('idfournisseur,nomfournisseur');
+            $this->db->from('v_demande_proforma_fournisseur_nom');
+            $this->db->where('iddemande', $iddemande);
+            $query = $this->db->get();
+            $fournisseurs =array();
+            $fournisseurs = $query->result_array();
+            $countfournisseurs = count($fournisseurs);
+            for ($i=0; $i < $countfournisseurs; $i++) { 
+                $fournisseurs[$i]['commandes']=array();
+                $fournisseurs[$i]['totaltva'] = 0;
+                $fournisseurs[$i]['montant'] = 0;
+            }
+            $this->db->select('*');
+            $this->db->from('v_demande_proform_details_article');
+            $this->db->where('iddemande', $iddemande);
+
+            $query = $this->db->get();
+            $articles = $query->result_array();
+            $nbarticles=  count($articles);
+            for ($i=0; $i <$nbarticles; $i++) { 
+                $this->db->select('*');
+                $this->db->from('v_proforma_details_demande');
+                $this->db->where('iddemande', $iddemande);
+                $this->db->where('idarticle', $articles[$i]['idarticle']);
+                $this->db->order_by('prixunitaire', 'asc');
+                $this->db->order_by('disponible', 'desc');
+
+                $query  = $this->db->get();
+                $quantite_reste = $articles[$i]['quantite'];
+                $prixfournisseur = $query->result_array();
+                $ifournisseur = 0;
+                $quantite_a_prendre;
+                $nbpf = count($prixfournisseur);
+                for ($j=0; $j <$nbpf ; $j++) { 
+                    if($prixfournisseur[$j]['disponible']>$quantite_reste){
+                        $quantite_a_prendre= $quantite_reste;
+                    }
+                    else{
+                        $quantite_a_prendre= $prixfournisseur[$j]['disponible'];
+                    }
+                    $ifournisseur++;
+                    for ($k=0; $k < $countfournisseurs ; $k++) { 
+                        if($prixfournisseur[$j]['idfournisseur'] == $fournisseurs[$k]['idfournisseur']){
+                            $fournisseurs[$k]['commandes'][] = array(
+                                'nomcategorie' => $articles[$i]['libellecategorie'],
+                                'nomarticle' => $articles[$i]['nomarticle'],
+                                'quantite' => $quantite_a_prendre,
+                                'prixht' => $prixfournisseur[$j]['prixunitaire'],
+                                'tva' => $articles[$i]['tva'],
+                                'ttc' => (1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire'],
+                                'montant'=>(1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire']*$quantite_a_prendre
+                            );
+                           
+                            $fournisseurs[$k]['totaltva'] += $articles[$i]['tva'];
+                            $fournisseurs[$k]['montant'] += (1+$articles[$i]['tva'])*$prixfournisseur[$j]['prixunitaire']*$quantite_a_prendre;
+                                
+                            $grandtotal+=$fournisseurs[$k]['montant'];
+                            $totaltva+=$fournisseurs[$k]['totaltva'];
+                        }
+                    }
+                    $quantite_reste = $quantite_reste - $quantite_a_prendre;
+                    
+                    if($quantite_reste == 0){
+                        break;
+                    }
+                }
+                
+            }
+            return array(
+                'fournisseurs'=>$fournisseurs,
+                'montant'=>$grandtotal,
+                'totaltva'=>$totaltva,
+            );
+
+        }
         public function verifier($iddemande){
             $this->db->select('idfournisseur');
             $this->db->from('proforma');

@@ -52,7 +52,7 @@ class PdfModel extends CI_Model{
 
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->Ln();
-        $pdf->Cell(40,20,'Bon de commande n:',);
+        $pdf->Cell(40,20,'Bon de commande n:');
         $pdf->Ln();
         $pdf->Cell(35,15,'Categorie',1, 0, 'C');
         $pdf->Cell(35,15,'Designation',1, 0, 'C');

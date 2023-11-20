@@ -206,3 +206,17 @@ join v_article
         on proforma.idfournisseur = v_demande_proforma_fournisseur.idfournisseur
         and v_demande_proforma_fournisseur.iddemande = proforma.iddemande
     );
+    create or replace view v_proforma_details_demande as
+    select 
+    detailsProforma.idarticle,detailsproforma.prixUnitaire,detailsProforma.disponible,proforma.idfournisseur,proforma.iddemande
+    from detailsProforma
+    join proforma
+        on proforma.idProforma  =detailsProforma.idProforma;
+        
+create or replace view v_demande_proform_details_article 
+as 
+select 
+iddemande,v_article_categorie.idarticle,quantite,v_article_categorie.libelleCategorie,v_article_categorie.tva,v_article_categorie.nomArticle
+from detailsdemandeproforma
+join v_article_categorie
+    on v_article_categorie.idarticle = detailsdemandeproforma.idarticle;

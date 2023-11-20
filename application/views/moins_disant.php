@@ -45,7 +45,6 @@
                         </div>
                         
                         <div class="container-xxl flex-grow-1 container-p-y">
-            
               <div class="card">
                 <h5 class="card-header">Bon de commande (moins disant)</h5>
                   <table class="table table-bordered">
@@ -57,170 +56,71 @@
                         <th>PU (HT)</th>
                         <th>TVA</th>
                         <th>PU (TTC)</th>
+                        <th>Montant</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <?php //foreach ($fournisseurs as $fournisseur): ?>
+                    <?php foreach ($bon['fournisseurs'] as $fournisseur): if(count($fournisseur['commandes'])>0){ ?>
                       <tr>
-                        <td colspan="6" style="background-color:#696cff;color:black;">
-                          FOURNISSEUR 2
+                        <td colspan="7" style="background-color:#696cff;color:black;">
+                          <?= $fournisseur['nomfournisseur'] ?>
                         </td>
                       </tr>
-                        <tr>
+                        
+                        <?php
+                        foreach ($fournisseur['commandes'] as $commande) { ?>
+                          <tr>
                             <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
+                            <span class="fw-medium"><?= $commande['nomcategorie'] ?></span>
                             </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
+                            <td><?= $commande['nomarticle'] ?></td>
+                            <td style="text-align:right;">
+                            <?= $commande['quantite'] ?>
                             </td>
-                            <td>
-                              1000
+                            <td style="text-align:right;">
+                            <?= $commande['prixht'] ?>
                             </td>
-                            <td>
-                              200
+                            <td style="text-align:right;">
+                            <?= $commande['tva'] ?>
                             </td>
-                            <td>
-                              1200
+                            <td style="text-align:right;">
+                            <?= $commande['ttc'] ?>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
-                            </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
-                            </td>
-                            <td>
-                              1000
-                            </td>
-                            <td>
-                              200
-                            </td>
-                            <td>
-                              1200
+                            <td style="text-align:right;">
+                            <?= $commande['montant'] ?>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
-                            </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
-                            </td>
-                            <td>
-                              1000
-                            </td>
-                            <td>
-                              200
-                            </td>
-                            <td>
-                              1200
-                            </td>
-                        </tr>
+                    <?php    } ?>
 
-                        <?php //endforeach; ?>
+
+                        <?php } endforeach; ?>
                         <tr style="font-weight:bold;">
                           <td colspan="3">
                             <span >TOTAL</span>
                           </td>
-                          <td>
-                            3000
+                          <td style="text-align:right;">
+                            
                           </td>
-                          <td>
-                            600
+                          <td style="text-align:right;">
+                          <?= $fournisseur['totaltva'] ?>
                           </td>
-                          <td>
-                            3600
+                          <td style="text-align:right;">
+                          
                           </td>
-                        </tr>
-                    
-                      <tr>
-                        <td colspan="6" style="background-color:#696cff;color:black;">
-                          FOURNISSEUR 2
-                        </td>
-                      </tr>
-                    <?php //foreach ($fournisseurs as $fournisseur): ?>
-                        <tr>
-                            <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
-                            </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
-                            </td>
-                            <td>
-                              1000
-                            </td>
-                            <td>
-                              200
-                            </td>
-                            <td>
-                              1200
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
-                            </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
-                            </td>
-                            <td>
-                              1000
-                            </td>
-                            <td>
-                              200
-                            </td>
-                            <td>
-                              1200
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            <span class="fw-medium">Frounitres de bureau</span>
-                            </td>
-                            <td>Cahiers</td>
-                            <td>
-                              5
-                            </td>
-                            <td>
-                              1000
-                            </td>
-                            <td>
-                              200
-                            </td>
-                            <td>
-                              1200
-                            </td>
-                        </tr>
-
-                        <?php //endforeach; ?>
-                        <tr style="font-weight:bold;">
-                          <td colspan="3">
-                            <span >TOTAL</span>
-                          </td>
-                          <td>
-                            3000
-                          </td>
-                          <td>
-                            600
-                          </td>
-                          <td>
-                            TTC
+                          <td style="text-align:right;">
+                          <?= $fournisseur['montant'] ?>
                           </td>
                         </tr>
                         <tr style="font-weight:bolder;font-size:17px;">
-                          <td colspan='3'>TOTAL</td>
-                          <td>1111</td>
-                          <td>22</td>
-                          <td>34444</td>
+                          <td colspan='2'>TOTAL DES BONS DE COMMANDE</td>
+                          <td style="text-align:right;"> </td>
+                          <td style="text-align:right;"> <?= $bon['totaltva'] ?></td>
+                          <td style="text-align:right;"></td>
+                          <td style="text-align:right;"> <?= $bon['montant'] ?></td>
                       </tr>
                     </tbody>
                   </table>
+
              
               </div>  
 
